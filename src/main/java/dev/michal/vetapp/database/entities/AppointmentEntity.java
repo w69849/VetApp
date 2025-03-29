@@ -1,4 +1,4 @@
-package database.entities;
+package dev.michal.vetapp.database.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.types.EnumStringType;
@@ -8,6 +8,7 @@ import java.util.Date;
 
 @DatabaseTable(tableName = "Appointments")
 public class AppointmentEntity {
+
     public enum AppointmentStatus{
         Scheduled,
         Completed,

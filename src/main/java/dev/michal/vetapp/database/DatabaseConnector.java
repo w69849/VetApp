@@ -1,19 +1,17 @@
-package database;
+package dev.michal.vetapp.database;
 
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.logger.Logger;
 import com.j256.ormlite.logger.LoggerFactory;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import database.entities.*;
+import dev.michal.vetapp.database.entities.*;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class DatabaseConnector {
-    private static final String connectionString =
-            "jdbc:sqlserver://localhost;databaseName=MyDb;integratedSecurity=true;";
 
+    private static final String connectionString = "jdbc:h2:./data/VetDatabase";
     private static final String user = "User";
     private static final String password = "Password";
 
@@ -22,9 +20,11 @@ public class DatabaseConnector {
     private static ConnectionSource connectionSource;
 
     public static void initDatabase(){
+        //System.setProperty("ORMLITE_LOG_LEVEL", "DEBUG");
         initConnection();
-        dropTables();
-        createTables();
+        //if(!new File("./data/VetDatabase").exists())
+            //dropTables();
+        //createTables();
         closeConnection();
     }
 

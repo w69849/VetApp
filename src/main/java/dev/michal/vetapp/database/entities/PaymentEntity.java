@@ -1,4 +1,4 @@
-package database.entities;
+package dev.michal.vetapp.database.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.types.EnumStringType;
@@ -6,6 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "Payments")
 public class PaymentEntity {
+
     public enum PaymentStatus{
         Paid,
         Overdue

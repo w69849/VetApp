@@ -1,4 +1,4 @@
-package database.entities;
+package dev.michal.vetapp.database.entities;
 
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.field.DatabaseField;
