@@ -1,19 +1,20 @@
-package dev.michal.vetapp;
+package dev.vetapp;
 
-import dev.michal.vetapp.database.DatabaseConnector;
+import dev.vetapp.database.DatabaseConnector;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-//import java.util.Locale;
-//import java.util.ResourceBundle;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         //Locale locale = Locale.getDefault();
-        //ResourceBundle.getBundle("languages/messages_pl", locale);
+        Locale locale = new Locale("pl", "PL");
+        ResourceBundle.getBundle("messages_pl", locale);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("MainView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

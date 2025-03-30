@@ -1,4 +1,4 @@
-package dev.michal.vetapp.controllers;
+package dev.vetapp.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

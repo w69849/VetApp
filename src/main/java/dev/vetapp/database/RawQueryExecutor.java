@@ -1,4 +1,4 @@
-package dev.michal.vetapp.database;
+package dev.vetapp.database;
 
 public class RawQueryExecutor {
 

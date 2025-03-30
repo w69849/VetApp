@@ -78,7 +78,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>dev.michal.vetapp/dev.michal.vetapp.Application</mainClass>
+                            <mainClass>dev.vetapp.Application</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
@@ -104,7 +104,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>dev.michal.vetapp.Application</mainClass>
+                            <mainClass>dev.vetapp.Application</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -123,7 +123,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>dev.michal.vetapp.Application</mainClass> <!-- Replace with your main class -->
+                            <mainClass>dev.vetapp.Application</mainClass> <!-- Replace with your main class -->
                             <arguments>
                                 <argument>--module-path</argument>
                                 <argument>${javafx.sdk.path}/lib</argument> <!-- Maven property for JavaFX SDK path -->
@@ -149,7 +149,7 @@
 <!--                        <configuration>-->
 <!--                            <transformers>-->
 <!--                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
-<!--                                    <mainClass>dev.michal.vetapp.Application</mainClass>-->
+<!--                                    <mainClass>dev.vetapp.Application</mainClass>-->
 <!--                                </transformer>-->
 <!--                            </transformers>-->
 <!--                        </configuration>-->

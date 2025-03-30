@@ -1,14 +1,14 @@
-module dev.michal.vetapp {
+module dev.vetapp {
     requires javafx.controls;
     requires javafx.fxml;
 
     requires ormlite.jdbc;
     requires java.sql;
 
-    opens dev.michal.vetapp to javafx.fxml;
-    exports dev.michal.vetapp;
-    exports dev.michal.vetapp.database.entities to ormlite.jdbc;
-    opens dev.michal.vetapp.database.entities to ormlite.jdbc;
-    exports dev.michal.vetapp.controllers;
-    opens dev.michal.vetapp.controllers to javafx.fxml;
+    opens dev.vetapp to javafx.fxml;
+    exports dev.vetapp;
+    exports dev.vetapp.database.entities to ormlite.jdbc;
+    opens dev.vetapp.database.entities to ormlite.jdbc;
+    exports dev.vetapp.controllers;
+    opens dev.vetapp.controllers to javafx.fxml;
 }

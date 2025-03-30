@@ -1,4 +1,4 @@
-package dev.michal.vetapp.database.entities;
+package dev.vetapp.database.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.types.EnumStringType;
