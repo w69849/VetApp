@@ -14,11 +14,8 @@ public class PetEntity {
     @DatabaseField(canBeNull = false)
     private String name;
 
-    @DatabaseField(canBeNull = false)
-    private String species;
-
-    @DatabaseField
-    private String breed;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private PetTypeEntity petType;
 
     @DatabaseField
     private int age;

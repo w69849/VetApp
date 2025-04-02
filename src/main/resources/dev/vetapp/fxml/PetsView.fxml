@@ -7,12 +7,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.vetapp.controllers.PetsController">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="200.0">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: green; -fx-font-weight: bold;" text="%addAnimal" textAlignment="CENTER" />
+            <Button fx:id="addPetButton" alignment="CENTER" mnemonicParsing="false" onAction="#createNewPetWindow" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: green; -fx-font-weight: bold;" text="%addPet" textAlignment="CENTER" />
          </children>
       </HBox>
       <TableView prefHeight="200.0" prefWidth="471.0">

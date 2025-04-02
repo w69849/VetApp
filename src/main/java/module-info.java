@@ -4,9 +4,11 @@ module dev.vetapp {
 
     requires ormlite.jdbc;
     requires java.sql;
+    requires com.h2database;
+    requires jdk.compiler;
 
-    opens dev.vetapp to javafx.fxml;
     exports dev.vetapp;
+    opens dev.vetapp to javafx.fxml;
     exports dev.vetapp.database.entities to ormlite.jdbc;
     opens dev.vetapp.database.entities to ormlite.jdbc;
     exports dev.vetapp.controllers;
