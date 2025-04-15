@@ -6,12 +6,8 @@ import com.j256.ormlite.logger.LoggerFactory;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import dev.vetapp.database.entities.*;
-import org.h2.table.Table;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DatabaseConnector {
 
@@ -24,12 +20,11 @@ public class DatabaseConnector {
     private static ConnectionSource connectionSource;
 
     public static void initDatabase(){
-        //System.setProperty("ORMLITE_LOG_LEVEL", "DEBUG");
         initConnection();
         //if(!new File("./data/VetDatabase").exists())
-        //    dropTables();
-        //createTables();
-        //DbHelper.FillDatabase();
+            dropTables();
+        createTables();
+        DbHelper.FillDatabase();
         closeConnection();
     }
 
@@ -66,8 +61,8 @@ public class DatabaseConnector {
             TableUtils.createTableIfNotExists(connectionSource, ClientEntity.class);
             TableUtils.createTableIfNotExists(connectionSource, InventoryEntity.class);
             TableUtils.createTableIfNotExists(connectionSource, PaymentEntity.class);
-            TableUtils.createTableIfNotExists(connectionSource, PetEntity.class);
-            TableUtils.createTableIfNotExists(connectionSource, PetTypeEntity.class);
+            TableUtils.createTableIfNotExists(connectionSource, AnimalEntity.class);
+            TableUtils.createTableIfNotExists(connectionSource, AnimalTypeEntity.class);
         }
         catch (SQLException e){
             logger.warn(e.getMessage());
@@ -135,8 +130,8 @@ public class DatabaseConnector {
             TableUtils.dropTable(connectionSource, ClientEntity.class, true);
             TableUtils.dropTable(connectionSource, InventoryEntity.class, true);
             TableUtils.dropTable(connectionSource, PaymentEntity.class, true);
-            TableUtils.dropTable(connectionSource, PetEntity.class, true);
-            TableUtils.dropTable(connectionSource, PetTypeEntity.class, true);
+            TableUtils.dropTable(connectionSource, AnimalEntity.class, true);
+            TableUtils.dropTable(connectionSource, AnimalTypeEntity.class, true);
         }
         catch (SQLException e){
             logger.warn(e.getMessage());

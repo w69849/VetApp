@@ -8,17 +8,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class PetsController {
+public class AnimalsController {
 
     @FXML
-    private void createNewPetWindow(){
+    private void createNewAnimalWindow(){
         try{
             ResourceBundle bundle = ResourceBundle.getBundle("dev.vetapp.languages.messages");
 
-            FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/dev/vetapp/fxml/NewPetView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/dev/vetapp/fxml/NewAnimalModal.fxml"));
             fxmlLoader.setResources(bundle);
             Scene scene = new Scene(fxmlLoader.load());
 

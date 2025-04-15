@@ -20,10 +20,16 @@ public class ClientEntity {
     private String email;
 
     @DatabaseField(canBeNull = false)
-    private String phone;
+    private String phoneNumber;
 
     @DatabaseField
     private String address;
+
+    @DatabaseField
+    private String zipCode;
+
+    @DatabaseField
+    private String city;
 
     @DatabaseField(canBeNull = false)
     private Date creationDate;

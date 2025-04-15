@@ -3,10 +3,10 @@ package dev.vetapp.database.entities;
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.field.DatabaseField;
 
-@DatabaseTable(tableName = "Pets")
-public class PetEntity {
+@DatabaseTable(tableName = "Animals")
+public class AnimalEntity {
     @DatabaseField(generatedId = true)
-    private int petId;
+    private int animalId;
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private ClientEntity owner;
@@ -15,7 +15,7 @@ public class PetEntity {
     private String name;
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    private PetTypeEntity petType;
+    private AnimalTypeEntity animalType;
 
     @DatabaseField
     private int age;
@@ -29,5 +29,5 @@ public class PetEntity {
     @DatabaseField
     private String medicalNotes;
 
-    public PetEntity() {} // Required by ORMLite
+    public AnimalEntity() {} // Required by ORMLite
 }

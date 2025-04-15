@@ -4,60 +4,59 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.logger.Logger;
 import com.j256.ormlite.logger.LoggerFactory;
-import dev.vetapp.database.entities.PetTypeEntity;
+import dev.vetapp.database.entities.AnimalTypeEntity;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
 public class DbHelper {
     private static final Logger logger = LoggerFactory.getLogger(DbHelper.class);
 
     public static void FillDatabase()
     {
-        ArrayList<PetTypeEntity> types = new ArrayList<>(Arrays.asList(
-                new PetTypeEntity("Pies", "Mieszany"),
-                new PetTypeEntity("Pies", "Labrador Retriever"),
-                new PetTypeEntity("Pies", "Owczarek niemiecki"),
-                new PetTypeEntity("Pies", "Golden Retriever"),
-                new PetTypeEntity("Pies", "Chihuahua"),
-                new PetTypeEntity("Pies", "Buldog francuski"),
-                new PetTypeEntity("Pies", "Jamnik"),
-                new PetTypeEntity("Pies", "Border Collie"),
-                new PetTypeEntity("Pies", "Yorkshire Terrier"),
+        ArrayList<AnimalTypeEntity> types = new ArrayList<>(Arrays.asList(
+                new AnimalTypeEntity("Pies", "Mieszany"),
+                new AnimalTypeEntity("Pies", "Labrador Retriever"),
+                new AnimalTypeEntity("Pies", "Owczarek niemiecki"),
+                new AnimalTypeEntity("Pies", "Golden Retriever"),
+                new AnimalTypeEntity("Pies", "Chihuahua"),
+                new AnimalTypeEntity("Pies", "Buldog francuski"),
+                new AnimalTypeEntity("Pies", "Jamnik"),
+                new AnimalTypeEntity("Pies", "Border Collie"),
+                new AnimalTypeEntity("Pies", "Yorkshire Terrier"),
 
-                new PetTypeEntity("Kot", "Mieszany"),
-                new PetTypeEntity("Kot", "Maine Coon"),
-                new PetTypeEntity("Kot", "Syjamski"),
-                new PetTypeEntity("Kot", "Ragdoll"),
-                new PetTypeEntity("Kot", "Perski"),
-                new PetTypeEntity("Kot", "Sfinks"),
-                new PetTypeEntity("Kot", "Bengalski"),
+                new AnimalTypeEntity("Kot", "Mieszany"),
+                new AnimalTypeEntity("Kot", "Maine Coon"),
+                new AnimalTypeEntity("Kot", "Syjamski"),
+                new AnimalTypeEntity("Kot", "Ragdoll"),
+                new AnimalTypeEntity("Kot", "Perski"),
+                new AnimalTypeEntity("Kot", "Sfinks"),
+                new AnimalTypeEntity("Kot", "Bengalski"),
 
-                new PetTypeEntity("Królik", "Mieszany"),
-                new PetTypeEntity("Królik", "Holenderski"),
-                new PetTypeEntity("Królik", "Nowozelandzki"),
+                new AnimalTypeEntity("Królik", "Mieszany"),
+                new AnimalTypeEntity("Królik", "Holenderski"),
+                new AnimalTypeEntity("Królik", "Nowozelandzki"),
 
-                new PetTypeEntity("Chomik", "Mieszany"),
-                new PetTypeEntity("Chomik", "Syryjski"),
-                new PetTypeEntity("Chomik", "Roborowski"),
-                new PetTypeEntity("Chomik", "Dżungalski"),
-                new PetTypeEntity("Chomik", "Chiński"),
+                new AnimalTypeEntity("Chomik", "Mieszany"),
+                new AnimalTypeEntity("Chomik", "Syryjski"),
+                new AnimalTypeEntity("Chomik", "Roborowski"),
+                new AnimalTypeEntity("Chomik", "Dżungalski"),
+                new AnimalTypeEntity("Chomik", "Chiński"),
 
-                new PetTypeEntity("Świnka morska", "Peruwiańska"),
-                new PetTypeEntity("Świnka morska", "Rozetka"),
-                new PetTypeEntity("Świnka morska", "Skinny"),
+                new AnimalTypeEntity("Świnka morska", "Peruwiańska"),
+                new AnimalTypeEntity("Świnka morska", "Rozetka"),
+                new AnimalTypeEntity("Świnka morska", "Skinny"),
 
-                new PetTypeEntity("Ptak", "Kanarek"),
-                new PetTypeEntity("Ptak", "Ara"),
-                new PetTypeEntity("Ptak", "Papużka falista"),
-                new PetTypeEntity("Ptak", "Nimfa"),
-                new PetTypeEntity("Ptak", "Żako")
+                new AnimalTypeEntity("Ptak", "Kanarek"),
+                new AnimalTypeEntity("Ptak", "Ara"),
+                new AnimalTypeEntity("Ptak", "Papużka falista"),
+                new AnimalTypeEntity("Ptak", "Nimfa"),
+                new AnimalTypeEntity("Ptak", "Żako")
         ));
 
         try{
-            Dao<PetTypeEntity, Integer> dao = DaoManager.createDao(DatabaseConnector.getConnectionSource(), PetTypeEntity.class);
+            Dao<AnimalTypeEntity, Integer> dao = DaoManager.createDao(DatabaseConnector.getConnectionSource(), AnimalTypeEntity.class);
             dao.create(types);
         }
         catch (SQLException e){

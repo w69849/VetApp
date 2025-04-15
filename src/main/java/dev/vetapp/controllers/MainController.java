@@ -21,8 +21,8 @@ public class MainController {
     private void initialize(){
         try{
             ResourceBundle bundle = ResourceBundle.getBundle("dev.vetapp.languages.messages");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dev/vetapp/fxml/PetsView.fxml"));
-            //fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("dev/vetapp/fxml/PetsView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dev/vetapp/fxml/AnimalsView.fxml"));
+            //fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("dev/vetapp/fxml/AnimalsView.fxml"));
 
             //FXMLLoader fxmlLoader = new FXMLLoader();
             //fxmlLoader.setLocation();

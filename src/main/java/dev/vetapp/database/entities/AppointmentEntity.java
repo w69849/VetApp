@@ -19,7 +19,7 @@ public class AppointmentEntity {
     private int appointmentId;
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    private PetEntity pet;
+    private AnimalEntity animal;
 
     @DatabaseField(canBeNull = false)
     private Date dateTime;

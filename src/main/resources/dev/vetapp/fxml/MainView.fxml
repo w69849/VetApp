@@ -11,7 +11,7 @@
          <children>
             <ToggleButton fx:id="visitsButton" mnemonicParsing="false" text="%appointments" />
             <ToggleButton fx:id="clientsButton" mnemonicParsing="false" text="%clients" />
-            <ToggleButton fx:id="petsButton" mnemonicParsing="false" text="%pets" />
+            <ToggleButton fx:id="petsButton" mnemonicParsing="false" text="%animals" />
             <ToggleButton fx:id="settingsButton" mnemonicParsing="false" text="%settings" />
          </children></VBox>
       <VBox prefHeight="200.0" HBox.hgrow="ALWAYS">
