@@ -1,49 +1,25 @@
-package dev.vetapp.database.entities;
+package dev.vetapp.models;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
-import java.time.LocalDate;
-import java.util.Date;
-
-@DatabaseTable(tableName = "Clients")
-public class ClientEntity {
-    @DatabaseField(generatedId = true)
-    private int id;
-
-    @DatabaseField(canBeNull = false)
+public class ClientModel {
     private String name;
-
-    @DatabaseField(canBeNull = false)
     private String surname;
-
-    @DatabaseField(unique = true, canBeNull = false)
     private String email;
-
-    @DatabaseField(canBeNull = false)
     private String phoneNumber;
-
-    @DatabaseField
     private String address;
-
-    @DatabaseField
     private String zipCode;
-
-    @DatabaseField
     private String city;
 
-    @DatabaseField(canBeNull = false)
-    private LocalDate creationDate;
-
-    public ClientEntity() {}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public ClientModel(String name, String surname, String email, String phoneNumber,
+//                       String address, String zipCode, String city){
+//        this.name = name;
+//        this.surname = surname;
+//        this.email = email;
+//        this.phoneNumber = phoneNumber;
+//        this.address = address;
+//        this.zipCode = zipCode;
+//        this.city = city;
+//    }
+    public ClientModel(){}
 
     public String getName() {
         return name;
@@ -99,13 +75,5 @@ public class ClientEntity {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
     }
 }

@@ -1,17 +1,26 @@
 package dev.vetapp.controllers;
 
+import dev.vetapp.models.AnimalModel;
+import dev.vetapp.models.AnimalTypeModel;
+import dev.vetapp.models.ClientModel;
+import dev.vetapp.services.AnimalService;
 import dev.vetapp.services.AnimalTypeService;
+import dev.vetapp.services.ClientService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.util.ResourceBundle;
 
 public class NewAnimalController {
+    @FXML private ResourceBundle resources;
+
+    @FXML private String animalNameTextField;
     @FXML private ComboBox<String> speciesComboBox;
     @FXML private ComboBox<String> breedComboBox;
     @FXML private ComboBox<String> genderComboBox;
-    @FXML private ResourceBundle resources;
+    @FXML private DatePicker birthDatePicker;
     @FXML private Spinner<Double> weightSpinner;
+    @FXML private TextArea notesTextArea;
 
     @FXML private TextField ownerNameTextField;
     @FXML private TextField ownerSurnameTextField;
@@ -22,9 +31,15 @@ public class NewAnimalController {
     @FXML private TextField cityTextField;
 
     private AnimalTypeService animalTypeService;
+    private AnimalService animalService;
+    private ClientService clientService;
+
+    private ClientModel clientModel;
 
     @FXML private void initialize(){
         animalTypeService = new AnimalTypeService();
+        animalService = new AnimalService();
+        clientService = new ClientService();
 
         initComboBoxes();
 
@@ -62,7 +77,37 @@ public class NewAnimalController {
         breedComboBox.setItems(animalTypeService.getBreeds(speciesComboBox.getSelectionModel().getSelectedItem()));
     }
 
-    @FXML private void onChooseButtonClick(){
+    @FXML private void onSaveButtonAction(){
+        AnimalTypeModel animalType = animalTypeService.getAnimalType(
+                speciesComboBox.getSelectionModel().getSelectedItem(),
+                breedComboBox.getSelectionModel().getSelectedItem());
+
+        if(clientModel == null) {
+            clientModel = new ClientModel();
+            clientModel.setCity(cityTextField.getText());
+            clientModel.setAddress(addressTextField.getText());
+            clientModel.setEmail(emailTextField.getText());
+            clientModel.setSurname(ownerSurnameTextField.getText());
+            clientModel.setPhoneNumber(phoneNumberTextField.getText());
+            clientModel.setZipCode(zipCodeTextField.getText());
+            clientModel.setName(ownerNameTextField.getText());
+
+            clientService.saveClient(clientModel);
+        }
+
+        AnimalModel animal = new AnimalModel();
+        animal.setAnimalType(animalType);
+        animal.setName(animalNameTextField);
+        animal.setGender(genderComboBox.getSelectionModel().getSelectedItem());
+        animal.setOwner(clientModel);
+        animal.setNotes(notesTextArea.toString());
+        animal.setWeight(weightSpinner.getValue());
+        animal.setBirthDate(birthDatePicker.getValue());
+
+        animalService.SaveAnimal(animal);
+    }
+
+    @FXML private void onChooseButtonAction(){
 
     }
 }

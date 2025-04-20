@@ -51,7 +51,7 @@
                                     <Label text="%gender" GridPane.rowIndex="3" />
                                     <Label text="%birthDate" GridPane.rowIndex="4" />
                                     <Label text="%weight" GridPane.rowIndex="5" />
-                                    <Label text="%comments" GridPane.rowIndex="6" />
+                                    <Label text="%notes" GridPane.rowIndex="6" />
                                     <TextField prefHeight="26.0" prefWidth="140.0" GridPane.columnIndex="1" />
                                     <ComboBox fx:id="speciesComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <ComboBox fx:id="breedComboBox" disable="true" onShowing="#breedComboBox_onShowing" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

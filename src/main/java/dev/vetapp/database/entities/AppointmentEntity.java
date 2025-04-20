@@ -8,7 +8,6 @@ import java.util.Date;
 
 @DatabaseTable(tableName = "Appointments")
 public class AppointmentEntity {
-
     public enum AppointmentStatus{
         Scheduled,
         Completed,

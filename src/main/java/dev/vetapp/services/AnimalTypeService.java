@@ -2,18 +2,15 @@ package dev.vetapp.services;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import dev.vetapp.database.DatabaseConnector;
 import dev.vetapp.database.entities.AnimalTypeEntity;
 import dev.vetapp.models.AnimalTypeModel;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableStringValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class AnimalTypeService {
@@ -22,12 +19,12 @@ public class AnimalTypeService {
     private ObservableList<String> animalBreeds;
 
     public AnimalTypeService(){
-        ReadAnimalTypes();
+        readAnimalTypes();
     }
 
-    private void ReadAnimalTypes(){
+    private void readAnimalTypes(){
         try(ConnectionSource connectionSource = DatabaseConnector.getConnectionSource()) {
-            Dao<AnimalTypeEntity, Integer> dao = DaoManager.createDao(DatabaseConnector.getConnectionSource(), AnimalTypeEntity.class);
+            Dao<AnimalTypeEntity, Integer> dao = DaoManager.createDao(connectionSource, AnimalTypeEntity.class);
             List<AnimalTypeEntity> list = dao.queryForAll();
 
             animalTypes = FXCollections.observableArrayList(list.stream()
@@ -46,10 +43,18 @@ public class AnimalTypeService {
 
     public ObservableList<String> getBreeds(String species){
         animalBreeds = FXCollections.observableArrayList(animalTypes.stream()
-                .filter(item -> item.getSpecies() == species)
+                .filter(e -> Objects.equals(e.getSpecies(), species))
                 .map(AnimalTypeModel::getBreed)
                 .collect(Collectors.toList()));
 
         return animalBreeds;
+    }
+
+    public AnimalTypeModel getAnimalType(String species, String breed){
+        return animalTypes.stream()
+                .filter(e -> Objects.equals(e.getSpecies(), species)
+                        && Objects.equals(e.getBreed(), breed))
+                .findFirst()
+                .orElse(null);
     }
 }
