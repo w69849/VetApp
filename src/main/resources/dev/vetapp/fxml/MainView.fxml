@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.vetapp.controllers.MainController">
    <children>
-      <VBox maxWidth="200.0" minWidth="100.0" prefWidth="100.0" style="-fx-background-color: #212121;">
+      <VBox maxWidth="200.0" minWidth="100.0" prefWidth="100.0" style="-fx-background-color: #422f1f;">
          <children>
-            <ToggleButton fx:id="visitsButton" mnemonicParsing="false" text="%appointments" />
-            <ToggleButton fx:id="clientsButton" mnemonicParsing="false" text="%clients" />
-            <ToggleButton fx:id="petsButton" mnemonicParsing="false" text="%animals" />
-            <ToggleButton fx:id="settingsButton" mnemonicParsing="false" text="%settings" />
-         </children></VBox>
+            <ToggleButton fx:id="visitsButton" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" selected="true" style="-fx-background-color: transparent;" styleClass="t-h" stylesheets="@../stylesheets/styles.css" text="%appointments" textFill="WHITE">
+               <toggleGroup>
+                  <ToggleGroup fx:id="navigation" />
+               </toggleGroup></ToggleButton>
+            <ToggleButton fx:id="clientsButton" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="142.0" style="-fx-background-color: transparent;" styleClass="navigationButton" stylesheets="@../stylesheets/styles.css" text="%clients" textFill="WHITE" toggleGroup="$navigation" />
+            <ToggleButton fx:id="petsButton" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="148.0" style="-fx-background-color: transparent;" styleClass="navigationButton" stylesheets="@../stylesheets/styles.css" text="%animals" textFill="WHITE" toggleGroup="$navigation" />
+            <ToggleButton fx:id="settingsButton" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="50.0" prefWidth="135.0" style="-fx-background-color: transparent;" styleClass="navigationButton" stylesheets="@../stylesheets/styles.css" text="%settings" textFill="WHITE" toggleGroup="$navigation" />
+         </children>
+         <padding>
+            <Insets top="75.0" />
+         </padding></VBox>
       <VBox prefHeight="200.0" HBox.hgrow="ALWAYS">
          <children>
             <HBox maxHeight="100.0" minHeight="75.0" prefHeight="75.0" prefWidth="100.0" />
