@@ -15,10 +15,9 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         //Locale locale = Locale.getDefault();
-        ResourceBundle bundle = ResourceBundle.getBundle("dev.vetapp.languages.messages");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("fxml/MainView.fxml"));
-        fxmlLoader.setResources(bundle);
+        FXMLLoader fxmlLoader = FxmlManager.loadFxml(FxmlManager.fxmlFiles.MainView);
+
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("VetApp");
         stage.setScene(scene);

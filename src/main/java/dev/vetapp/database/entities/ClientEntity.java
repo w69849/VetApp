@@ -1,5 +1,6 @@
 package dev.vetapp.database.entities;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -32,7 +33,7 @@ public class ClientEntity {
     @DatabaseField
     private String city;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(dataType = DataType.DATE_TIME ,canBeNull = false)
     private LocalDate creationDate;
 
     public ClientEntity() {}

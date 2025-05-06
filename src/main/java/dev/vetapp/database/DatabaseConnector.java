@@ -7,6 +7,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import dev.vetapp.database.entities.*;
 
+import java.io.File;
 import java.sql.SQLException;
 
 public class DatabaseConnector {
@@ -21,8 +22,10 @@ public class DatabaseConnector {
 
     public static void initDatabase(){
         initConnection();
-        //if(!new File("./data/VetDatabase").exists())
-            dropTables();
+
+        //if(new File("./data/VetDatabase").exists())
+          //  dropTables();
+
         createTables();
         DbHelper.FillDatabase();
         closeConnection();

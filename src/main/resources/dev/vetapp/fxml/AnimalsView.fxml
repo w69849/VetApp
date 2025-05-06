@@ -11,12 +11,12 @@
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="200.0">
          <children>
-            <Button fx:id="addPetButton" alignment="CENTER" mnemonicParsing="false" onAction="#createNewAnimalWindow" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: green; -fx-font-weight: bold;" text="%addAnimal" textAlignment="CENTER" />
+            <Button fx:id="addAnimalButton" alignment="CENTER" mnemonicParsing="false" onAction="#createNewAnimalModal" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: green; -fx-font-weight: bold;" text="%addAnimal" textAlignment="CENTER" />
          </children>
       </HBox>
       <TableView prefHeight="200.0" prefWidth="471.0">
         <columns>
-          <TableColumn prefWidth="42.399993896484375" text="Id" />
+          <TableColumn prefWidth="42.399993896484375" text="%ID" />
           <TableColumn prefWidth="124.79998779296875" text="%animalName" />
             <TableColumn prefWidth="83.20001220703125" text="%owner" />
             <TableColumn prefWidth="83.20001220703125" text="%species" />

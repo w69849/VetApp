@@ -20,7 +20,7 @@ public class AnimalEntity {
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private AnimalTypeEntity animalType;
 
-    @DatabaseField
+    @DatabaseField(canBeNull = false, dataType = DataType.DATE_TIME)
     private LocalDate birthDate;
 
     @DatabaseField

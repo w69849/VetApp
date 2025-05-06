@@ -84,12 +84,11 @@ public class NewAnimalController {
 
         if(clientModel == null) {
             clientModel = new ClientModel();
-            clientModel.setCity(cityTextField.getText());
+            clientModel.setLocation(cityTextField.getText(), zipCodeTextField.getText());
             clientModel.setAddress(addressTextField.getText());
             clientModel.setEmail(emailTextField.getText());
             clientModel.setSurname(ownerSurnameTextField.getText());
             clientModel.setPhoneNumber(phoneNumberTextField.getText());
-            clientModel.setZipCode(zipCodeTextField.getText());
             clientModel.setName(ownerNameTextField.getText());
 
             clientService.saveClient(clientModel);

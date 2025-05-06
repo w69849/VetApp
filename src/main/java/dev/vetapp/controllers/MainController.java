@@ -1,5 +1,6 @@
 package dev.vetapp.controllers;
 
+import dev.vetapp.FxmlManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,30 +11,34 @@ import java.util.ResourceBundle;
 
 
 public class MainController {
-    @FXML
-    private AnchorPane contentArea;
+    @FXML private AnchorPane contentArea;
 
-    @FXML
-    protected void onHelloButtonClick(){
-    }
-
-    @FXML
-    private void initialize(){
+    @FXML private void initialize(){
         try{
-            ResourceBundle bundle = ResourceBundle.getBundle("dev.vetapp.languages.messages");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dev/vetapp/fxml/AnimalsView.fxml"));
-            //fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("dev/vetapp/fxml/AnimalsView.fxml"));
-
-            //FXMLLoader fxmlLoader = new FXMLLoader();
-            //fxmlLoader.setLocation();
-            fxmlLoader.setResources(bundle);
-            Parent pane = fxmlLoader.load();
+            Parent pane = FxmlManager.loadFxml(FxmlManager.fxmlFiles.ClientsView).load();
             contentArea.getChildren().setAll(pane);
         }
         catch (IOException e){
-            //e.printStackTrace();
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage() + "XDDDD" + e.getStackTrace());
         }
     }
 
+    @FXML private void setClientsView(){
+        try{
+            Parent pane = FxmlManager.loadFxml(FxmlManager.fxmlFiles.ClientsView).load();
+            contentArea.getChildren().setAll(pane);
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML private void setVisitsView(){
+
+    }
+
+    @FXML private void setAnimalsView(){
+
+    }
 }
