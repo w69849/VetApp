@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.vetapp.controllers.NewClientController">
    <children>
       <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -48,7 +47,7 @@
                   <TextField fx:id="zipCodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
             </GridPane>
-            <Line endX="-0.11296387016773224" endY="-0.05665884166955948" startX="-500.20587158203125" startY="0.8929176330566406" />
+            <Line endX="-0.11296387016773224" endY="-0.05665884166955948" startX="-599.8026123046875" startY="-0.8574731349945068" />
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="606.0" spacing="20.0">
                <children>
                   <Button mnemonicParsing="false" text="%cancel" />

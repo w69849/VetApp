@@ -9,12 +9,14 @@ import dev.vetapp.services.ClientService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ResourceBundle;
 
 public class NewAnimalController {
     @FXML private ResourceBundle resources;
 
-    @FXML private String animalNameTextField;
+    @FXML private TextField animalNameTextField;
     @FXML private ComboBox<String> speciesComboBox;
     @FXML private ComboBox<String> breedComboBox;
     @FXML private ComboBox<String> genderComboBox;
@@ -78,35 +80,76 @@ public class NewAnimalController {
     }
 
     @FXML private void onSaveButtonAction(){
-        AnimalTypeModel animalType = animalTypeService.getAnimalType(
-                speciesComboBox.getSelectionModel().getSelectedItem(),
-                breedComboBox.getSelectionModel().getSelectedItem());
+        if(!validateAnimalForm() || !validateClientForm())
+            return;
 
         if(clientModel == null) {
-            clientModel = new ClientModel();
-            clientModel.setLocation(cityTextField.getText(), zipCodeTextField.getText());
-            clientModel.setAddress(addressTextField.getText());
-            clientModel.setEmail(emailTextField.getText());
-            clientModel.setSurname(ownerSurnameTextField.getText());
-            clientModel.setPhoneNumber(phoneNumberTextField.getText());
-            clientModel.setName(ownerNameTextField.getText());
+            try{
+                clientModel = new ClientModel();
+                clientModel.setLocation(cityTextField.getText(), zipCodeTextField.getText());
+                clientModel.setAddress(addressTextField.getText());
+                clientModel.setEmail(emailTextField.getText());
+                clientModel.setSurname(ownerSurnameTextField.getText());
+                clientModel.setPhoneNumber(phoneNumberTextField.getText());
+                clientModel.setName(ownerNameTextField.getText());
 
-            clientService.saveClient(clientModel);
+                clientService.saveClient(clientModel);
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+                return;
+            }
         }
 
         AnimalModel animal = new AnimalModel();
-        animal.setAnimalType(animalType);
-        animal.setName(animalNameTextField);
+        animal.setSpecies(speciesComboBox.getSelectionModel().getSelectedItem());
+        animal.setBreed(breedComboBox.getSelectionModel().getSelectedItem());
+        animal.setName(animalNameTextField.getText());
         animal.setGender(genderComboBox.getSelectionModel().getSelectedItem());
+
+        System.out.println("XXDDD22 " + clientModel + clientModel.getName());
         animal.setOwner(clientModel);
-        animal.setNotes(notesTextArea.toString());
+        animal.setNotes(notesTextArea.getText());
         animal.setWeight(weightSpinner.getValue());
-        animal.setBirthDate(birthDatePicker.getValue());
+
+        Period period = Period.between(birthDatePicker.getValue(), LocalDate.now());
+        int ageInMonths = period.getYears() * 12 + period.getMonths();
+        animal.setAge(ageInMonths);
 
         animalService.SaveAnimal(animal);
     }
 
+    @FXML private void onCancelButtonAction(){
+
+    }
+
     @FXML private void onChooseButtonAction(){
 
+    }
+
+    private boolean validateAnimalForm(){
+        if(animalNameTextField.getText().isEmpty())
+            return false;
+
+        if(speciesComboBox.getSelectionModel().getSelectedItem().isEmpty())
+            return false;
+
+        if(breedComboBox.getSelectionModel().getSelectedItem().isEmpty())
+            return false;
+
+        if(genderComboBox.getSelectionModel().getSelectedItem().isEmpty())
+            return false;
+
+        if(weightSpinner.getValue().isNaN())
+            return false;
+
+        if(birthDatePicker.getValue().toString().isEmpty())
+            return false;
+
+        return true;
+    }
+
+    private boolean validateClientForm(){
+        return true;
     }
 }

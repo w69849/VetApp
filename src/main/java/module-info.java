@@ -13,4 +13,7 @@ module dev.vetapp {
     opens dev.vetapp.database.entities to ormlite.jdbc;
     exports dev.vetapp.controllers;
     opens dev.vetapp.controllers to javafx.fxml;
+
+    exports dev.vetapp.models;
+    opens dev.vetapp.models to javafx.base;
 }

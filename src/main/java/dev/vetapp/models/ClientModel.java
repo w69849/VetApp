@@ -23,9 +23,8 @@ public class ClientModel {
 //    }
     public ClientModel(){}
 
-    public Integer getId(){
-        return id;
-    }
+    public Integer getId(){ return id; }
+    public void setId(Integer id){ this.id = id; }
 
     public String getName() {
         return name;
@@ -41,9 +40,7 @@ public class ClientModel {
         this.surname = surname;
     }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
     public void setEmail(String email) {
         this.email = email;
     }
@@ -84,4 +81,10 @@ public class ClientModel {
 //    public void setCity(String city) {
 //        this.city = city;
 //    }
+
+
+    @Override
+    public String toString() {
+        return name + " " + surname;
+    }
 }

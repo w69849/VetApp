@@ -3,7 +3,7 @@ package dev.vetapp.database.entities;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "PetTypes")
+@DatabaseTable(tableName = "AnimalTypes")
 public class AnimalTypeEntity {
     @DatabaseField(generatedId = true)
     private int animalTypeId;

@@ -15,6 +15,7 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         //Locale locale = Locale.getDefault();
+        DatabaseConnector.initDatabase();
 
         FXMLLoader fxmlLoader = FxmlManager.loadFxml(FxmlManager.fxmlFiles.MainView);
 
@@ -31,8 +32,6 @@ public class Application extends javafx.application.Application {
 //        } catch (SQLException e) {
 //            throw new RuntimeException(e);
 //        }
-
-        DatabaseConnector.initDatabase();
     }
 
     public static void main(String[] args) {

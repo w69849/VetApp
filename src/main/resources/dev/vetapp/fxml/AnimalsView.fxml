@@ -7,23 +7,29 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.vetapp.controllers.AnimalsController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.vetapp.controllers.AnimalsController">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="200.0">
          <children>
             <Button fx:id="addAnimalButton" alignment="CENTER" mnemonicParsing="false" onAction="#createNewAnimalModal" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: green; -fx-font-weight: bold;" text="%addAnimal" textAlignment="CENTER" />
          </children>
       </HBox>
-      <TableView prefHeight="200.0" prefWidth="471.0">
+      <TableView fx:id="animalsTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="400.0" VBox.vgrow="ALWAYS">
         <columns>
-          <TableColumn prefWidth="42.399993896484375" text="%ID" />
-          <TableColumn prefWidth="124.79998779296875" text="%animalName" />
-            <TableColumn prefWidth="83.20001220703125" text="%owner" />
-            <TableColumn prefWidth="83.20001220703125" text="%species" />
-            <TableColumn prefWidth="72.79998779296875" text="%age" />
-            <TableColumn prefWidth="95.20001220703125" text="%registrationDate" />
-            <TableColumn prefWidth="95.20001220703125" text="%actions" />
+          <TableColumn fx:id="idColumn" prefWidth="42.399993896484375" text="%ID" />
+          <TableColumn fx:id="animalNameColumn" prefWidth="124.79998779296875" text="%animalName" />
+            <TableColumn fx:id="ownerColumn" prefWidth="83.20001220703125" text="%owner" />
+            <TableColumn fx:id="speciesColumn" prefWidth="83.20001220703125" text="%species" />
+            <TableColumn fx:id="breedColumn" prefWidth="83.20001220703125" text="%breed" />
+            <TableColumn fx:id="genderColumn" prefWidth="75.0" text="%gender" />
+            <TableColumn fx:id="ageColumn" prefWidth="48.79998779296875" text="%age" />
+            <TableColumn fx:id="weightColumn" prefWidth="66.39993286132812" text="%weight" />
+            <TableColumn fx:id="notesColumn" prefWidth="103.99993896484375" text="%notes" />
+            <TableColumn fx:id="actionsColumn" prefWidth="80.800048828125" text="%actions" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
    </children>
    <padding>

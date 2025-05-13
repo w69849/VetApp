@@ -2,15 +2,18 @@ package dev.vetapp.database.entities;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.stmt.query.In;
 import com.j256.ormlite.table.DatabaseTable;
 
-import java.time.LocalDate;
-import java.util.Date;
+//import java.time.LocalDate;
+//import java.util.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 @DatabaseTable(tableName = "Clients")
 public class ClientEntity {
     @DatabaseField(generatedId = true)
-    private int id;
+    private Integer id;
 
     @DatabaseField(canBeNull = false)
     private String name;
@@ -21,7 +24,7 @@ public class ClientEntity {
     @DatabaseField(unique = true, canBeNull = false)
     private String email;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField()
     private String phoneNumber;
 
     @DatabaseField
@@ -33,31 +36,24 @@ public class ClientEntity {
     @DatabaseField
     private String city;
 
-    @DatabaseField(dataType = DataType.DATE_TIME ,canBeNull = false)
-    private LocalDate creationDate;
+    @DatabaseField(canBeNull = false)
+    private Timestamp creationDate;
 
     public ClientEntity() {}
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     public String getSurname() {
         return surname;
     }
-
     public void setSurname(String surname) {
         this.surname = surname;
     }
@@ -65,7 +61,6 @@ public class ClientEntity {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -73,7 +68,6 @@ public class ClientEntity {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
@@ -102,11 +96,10 @@ public class ClientEntity {
         this.city = city;
     }
 
-    public LocalDate getCreationDate() {
+    public Timestamp getCreationDate() {
         return creationDate;
     }
-
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
 }

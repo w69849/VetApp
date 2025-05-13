@@ -23,8 +23,9 @@ public class DatabaseConnector {
     public static void initDatabase(){
         initConnection();
 
-        //if(new File("./data/VetDatabase").exists())
-          //  dropTables();
+        //if(new File("./data/VetDatabase").exists()) {
+        //    dropTables();
+        //}
 
         createTables();
         DbHelper.FillDatabase();

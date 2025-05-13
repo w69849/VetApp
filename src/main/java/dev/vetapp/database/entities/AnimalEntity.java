@@ -4,24 +4,26 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.field.DatabaseField;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @DatabaseTable(tableName = "Animals")
 public class AnimalEntity {
     @DatabaseField(generatedId = true)
-    private int id;
+    private Integer id;
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, canBeNull = false)
     private ClientEntity owner;
 
     @DatabaseField(canBeNull = false)
     private String name;
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, canBeNull = false)
     private AnimalTypeEntity animalType;
 
-    @DatabaseField(canBeNull = false, dataType = DataType.DATE_TIME)
-    private LocalDate birthDate;
+    @DatabaseField(canBeNull = false)
+    private Timestamp birthDate;
 
     @DatabaseField
     private String gender;
@@ -56,7 +58,6 @@ public class AnimalEntity {
     public ClientEntity getOwner() {
         return owner;
     }
-
     public void setOwner(ClientEntity owner) {
         this.owner = owner;
     }
@@ -64,7 +65,6 @@ public class AnimalEntity {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -72,23 +72,20 @@ public class AnimalEntity {
     public AnimalTypeEntity getAnimalType() {
         return animalType;
     }
-
     public void setAnimalType(AnimalTypeEntity animalType) {
         this.animalType = animalType;
     }
 
-    public LocalDate getBirthDate() {
+    public Timestamp getBirthDate() {
         return birthDate;
     }
-
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(Timestamp birthDate) {
         this.birthDate = birthDate;
     }
 
     public String getGender() {
         return gender;
     }
-
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -96,7 +93,6 @@ public class AnimalEntity {
     public double getWeight() {
         return weight;
     }
-
     public void setWeight(double weight) {
         this.weight = weight;
     }
@@ -104,7 +100,6 @@ public class AnimalEntity {
     public String getNotes() {
         return notes;
     }
-
     public void setNotes(String notes) {
         this.notes = notes;
     }

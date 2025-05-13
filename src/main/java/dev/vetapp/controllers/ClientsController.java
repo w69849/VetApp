@@ -25,6 +25,8 @@ public class ClientsController {
 
     @FXML
     private void initialize(){
+        clientService = new ClientService();
+
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         clientSurnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
@@ -32,8 +34,6 @@ public class ClientsController {
         phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-
-        clientService = new ClientService();
 
         clientsTable.setItems(clientService.getClients());
     }

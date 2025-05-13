@@ -7,12 +7,17 @@ import dev.vetapp.Mapper;
 import dev.vetapp.database.DatabaseConnector;
 import dev.vetapp.database.entities.ClientEntity;
 import dev.vetapp.models.ClientModel;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
 
 public class ClientService {
-    private Mapper mapper;
+    private final Mapper mapper;
+
+    public ClientService(){
+        mapper = new Mapper();
+    }
 
     public void saveClient(ClientModel model)
     {
@@ -20,8 +25,8 @@ public class ClientService {
 
         try(ConnectionSource conn = DatabaseConnector.getConnectionSource()){
             Dao<ClientEntity, Integer> dao = DaoManager.createDao(conn, ClientEntity.class);
-
             dao.createOrUpdate(entity);
+            model.setId(entity.getId());
         }
         catch (Exception e){
             throw new RuntimeException(e);
@@ -33,7 +38,7 @@ public class ClientService {
             Dao<ClientEntity, Integer> dao = DaoManager.createDao(conn, ClientEntity.class);
 
             List<ClientEntity> list = dao.queryForAll();
-            ObservableList<ClientModel> observableList = null;
+            ObservableList<ClientModel> observableList = FXCollections.observableArrayList();
 
             for(var e : list){
                observableList.add(mapper.mapToModel(e));

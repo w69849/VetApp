@@ -25,8 +25,6 @@ public class NewClientController {
         if(!validateForm())
             return;
 
-        System.out.println(validateForm());
-
         if(clientModel == null) {
             clientModel = new ClientModel();
             clientModel.setAddress(addressTextField.getText());
@@ -41,32 +39,25 @@ public class NewClientController {
     }
 
     private boolean validateForm(){
-        String string = clientNameTextField.getText();
-        if(string.isEmpty())
+        if(clientNameTextField.getText().isEmpty())
             return false;
 
-        string = clientSurnameTextField.getText();
-        if(string.isEmpty())
+        if(clientSurnameTextField.getText().isEmpty())
             return false;
 
-        string = emailTextField.getText();
-        if(string.isEmpty())
+        if(emailTextField.getText().isEmpty())
             return false;
 
-        string = phoneNumberTextField.getText();
-        if(string.isEmpty())
+        if(phoneNumberTextField.getText().isEmpty())
             return false;
 
-        string = addressTextField.getText();
-        if(string.isEmpty())
+        if(addressTextField.getText().isEmpty())
             return false;
 
-        string = zipCodeTextField.getText();
-        if(string.isEmpty())
+        if(zipCodeTextField.getText().isEmpty())
             return false;
 
-        string = cityTextField.getText();
-        if(string.isEmpty())
+        if(cityTextField.getText().isEmpty())
             return false;
 
         return true;

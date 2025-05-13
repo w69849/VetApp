@@ -5,10 +5,13 @@ import dev.vetapp.database.entities.ClientEntity;
 import java.time.LocalDate;
 
 public class AnimalModel {
+    private Integer id;
     private ClientModel owner;
     private String name;
-    private AnimalTypeModel animalType;
-    private LocalDate birthDate;
+    //private AnimalTypeModel animalType;
+    private String species;
+    private String breed;
+    private int age;  // in months
     private String gender;
     private double weight;
     private String notes;
@@ -24,6 +27,9 @@ public class AnimalModel {
 //        this.notes = notes;
 //    }
     public AnimalModel(){}
+
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public ClientModel getOwner() {
         return owner;
@@ -53,19 +59,25 @@ public class AnimalModel {
         this.gender = gender;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public int getAge() {
+        return age;
     }
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public AnimalTypeModel getAnimalType() {
-        return animalType;
-    }
-    public void setAnimalType(AnimalTypeModel animalType) {
-        this.animalType = animalType;
-    }
+    public String getSpecies() { return species; }
+    public void setSpecies(String species) { this.species = species; }
+
+    public String getBreed() { return breed; }
+    public void setBreed(String breed) { this.breed = breed; }
+
+    //public AnimalTypeModel getAnimalType() {
+    //    return animalType;
+    //}
+    //public void setAnimalType(AnimalTypeModel animalType) {
+    //    this.animalType = animalType;
+    //}
 
     public String getName() {
         return name;
