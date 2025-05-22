@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.2</junit.version>
         <javafx.version>23.0.1</javafx.version>
-        <javafx.sdk.path>C:\Program Files\JavaFx\openjfx-21.0.6_windows-x64_bin-sdk\javafx-sdk-21.0.6\lib</javafx.sdk.path>
+        <!--<javafx.sdk.path>C:\Program Files\JavaFx\openjfx-21.0.6_windows-x64_bin-sdk\javafx-sdk-21.0.6\lib</javafx.sdk.path> -->
     </properties>
 
     <dependencies>
@@ -131,7 +131,7 @@
                             <mainClass>dev.vetapp.Application</mainClass> <!-- Replace with your main class -->
                             <arguments>
                                 <argument>--module-path</argument>
-                                <argument>${javafx.sdk.path}/lib</argument> <!-- Maven property for JavaFX SDK path -->
+                                <!--<argument>${javafx.sdk.path}/lib</argument>  Maven property for JavaFX SDK path -->
                                 <argument>--add-modules</argument>
                                 <argument>javafx.controls,javafx.fxml</argument> <!-- Specify the JavaFX modules you need -->
                                 <argument>-jar</argument>
