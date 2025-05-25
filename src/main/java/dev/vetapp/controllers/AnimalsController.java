@@ -49,7 +49,7 @@ public class AnimalsController {
     @FXML
     private void createNewAnimalModal(){
         try{
-            FxmlManager.loadFxmlModal(FxmlManager.fxmlFiles.NewAnimalModal);
+            FxmlManager.loadFxmlModal(FxmlManager.FxmlFile.NewAnimalModal);
         }
         catch (IOException e){
             System.out.println(e.getMessage());

@@ -5,3 +5,9 @@
 .navigationButton:hover{
 	-fx-background-color: white;
 }
+
+.calendarCell {
+    -fx-background-color: red;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 1 1 0;
+}

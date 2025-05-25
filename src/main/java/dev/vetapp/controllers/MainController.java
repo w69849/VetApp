@@ -1,6 +1,8 @@
 package dev.vetapp.controllers;
 
+import dev.vetapp.Dialog;
 import dev.vetapp.FxmlManager;
+import dev.vetapp.GlobalConfig;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.ToggleButton;
@@ -15,14 +17,8 @@ public class MainController {
 
     Parent clientsView;
 
-    @FXML private void initialize(){
-        try{
-            Parent pane = FxmlManager.loadFxml(FxmlManager.fxmlFiles.ClientsView).load();
-            contentArea.setCenter(pane);
-        }
-        catch (IOException e){
-            System.out.println(e.getMessage());
-        }
+    @FXML private void initialize() throws IOException {
+        setClientsView();
 
         navigationGroup.selectedToggleProperty()
                 .addListener((obs, oldToggle, newToggle) -> {
@@ -40,31 +36,20 @@ public class MainController {
         button.setStyle("-fx-background-color: #ff9800");
     }
 
-    @FXML private void setClientsView(){
-        try{
-            //if(clientsView == null)
-                clientsView = FxmlManager.loadFxml(FxmlManager.fxmlFiles.ClientsView).load();
-            contentArea.setCenter(clientsView);
-        }
-        catch (IOException e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
-        }
+    @FXML private void setClientsView() throws IOException {
+        //if(clientsView == null)
+        clientsView = FxmlManager.loadFxml(FxmlManager.FxmlFile.ClientsView).load();
+        contentArea.setCenter(clientsView);
     }
 
-    @FXML private void setVisitsView(){
-
+    @FXML private void setVisitsView() throws IOException {
+        Parent visitsView = FxmlManager.loadFxml(FxmlManager.FxmlFile.AppointmentsView).load();
+        contentArea.setCenter(visitsView);
     }
 
-    @FXML private void setAnimalsView(){
-        try{
-            //if(clientsView == null)
-            Parent animalsView = FxmlManager.loadFxml(FxmlManager.fxmlFiles.AnimalsView).load();
-            contentArea.setCenter(animalsView);
-        }
-        catch (IOException e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
-        }
+    @FXML private void setAnimalsView() throws IOException {
+        //if(clientsView == null)
+        Parent animalsView = FxmlManager.loadFxml(FxmlManager.FxmlFile.AnimalsView).load();
+        contentArea.setCenter(animalsView);
     }
 }

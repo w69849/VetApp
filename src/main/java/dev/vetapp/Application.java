@@ -17,7 +17,7 @@ public class Application extends javafx.application.Application {
         //Locale locale = Locale.getDefault();
         DatabaseConnector.initDatabase();
 
-        FXMLLoader fxmlLoader = FxmlManager.loadFxml(FxmlManager.fxmlFiles.MainView);
+        FXMLLoader fxmlLoader = FxmlManager.loadFxml(FxmlManager.FxmlFile.MainView);
 
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("VetApp");

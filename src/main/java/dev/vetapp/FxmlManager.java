@@ -9,33 +9,42 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class FxmlManager {
-    public enum fxmlFiles{
-        MainView,
-        AnimalsView,
-        ClientsView,
-        NewAnimalModal,
-        NewClientModal
+    public enum FxmlFile{
+        MainView("fxml/MainView.fxml"),
+        AnimalsView("/dev/vetapp/fxml/AnimalsView.fxml"),
+        ClientsView("/dev/vetapp/fxml/ClientsView.fxml"),
+        AppointmentsView("/dev/vetapp/fxml/AppointmentsView.fxml"),
+        NewAnimalModal("/dev/vetapp/fxml/NewAnimalModal.fxml"),
+        NewClientModal("/dev/vetapp/fxml/NewClientModal.fxml");
+
+        private final String path;
+
+        FxmlFile(String path){
+            this.path = path;
+        }
+
+        public String getPath(){
+            return path;
+        }
     }
 
     private static String resourcePath = "dev.vetapp.languages.messages";
 
-    public static FXMLLoader loadFxml(fxmlFiles file){
+    public static FXMLLoader loadFxml(FxmlFile file){
         ResourceBundle bundle = ResourceBundle.getBundle(resourcePath);
 
-        String fxmlPath = getFxmlPath(file);
-
-        if(fxmlPath == null)
+        if(file.getPath() == null)
             return null;
 
-        System.out.println(fxmlPath);
+        System.out.println("[LOG] Fxml path: " + file.getPath());
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fxmlPath));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(file.getPath()));
         fxmlLoader.setResources(bundle);
 
         return fxmlLoader;
     }
 
-    public static FXMLLoader loadFxmlModal(fxmlFiles file) throws IOException {
+    public static FXMLLoader loadFxmlModal(FxmlFile file) throws IOException {
         FXMLLoader fxmlLoader = loadFxml(file);
 
         Scene scene = new Scene(fxmlLoader.load());
@@ -46,26 +55,5 @@ public class FxmlManager {
         stage.show();
 
         return fxmlLoader;
-    }
-
-    private static String getFxmlPath(fxmlFiles file){
-        switch (file){
-            case fxmlFiles.MainView -> {
-                return "fxml/MainView.fxml";
-            }
-            case fxmlFiles.AnimalsView -> {
-                return "/dev/vetapp/fxml/AnimalsView.fxml";
-            }
-            case fxmlFiles.ClientsView -> {
-                return "/dev/vetapp/fxml/ClientsView.fxml";
-            }
-            case fxmlFiles.NewAnimalModal -> {
-                return "/dev/vetapp/fxml/NewAnimalModal.fxml";
-            }
-            case fxmlFiles.NewClientModal -> {
-                return "/dev/vetapp/fxml/NewClientModal.fxml";
-            }
-            default -> { return null; }
-        }
     }
 }

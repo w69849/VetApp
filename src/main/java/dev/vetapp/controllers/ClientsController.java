@@ -41,7 +41,7 @@ public class ClientsController {
     @FXML
     private void createNewClientModal(){
         try{
-            NewClientController controller = FxmlManager.loadFxmlModal(FxmlManager.fxmlFiles.NewClientModal).getController();
+            NewClientController controller = FxmlManager.loadFxmlModal(FxmlManager.FxmlFile.NewClientModal).getController();
             controller.setClientService(clientService);
         }
         catch (IOException e){
