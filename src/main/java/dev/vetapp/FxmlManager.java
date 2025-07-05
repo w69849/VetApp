@@ -15,7 +15,9 @@ public class FxmlManager {
         ClientsView("/dev/vetapp/fxml/ClientsView.fxml"),
         AppointmentsView("/dev/vetapp/fxml/AppointmentsView.fxml"),
         NewAnimalModal("/dev/vetapp/fxml/NewAnimalModal.fxml"),
-        NewClientModal("/dev/vetapp/fxml/NewClientModal.fxml");
+        NewClientModal("/dev/vetapp/fxml/NewClientModal.fxml"),
+        NewAppointmentModal("/dev/vetapp/fxml/NewAppointmentModal.fxml"),
+        SimpleClientsModal("/dev/vetapp/fxml/SimpleClientsModal.fxml");
 
         private final String path;
 
@@ -56,4 +58,14 @@ public class FxmlManager {
 
         return fxmlLoader;
     }
+
+//    public class ModalResult {
+//        public final FXMLLoader loader;
+//        public final Stage stage;
+//
+//        public ModalResult(FXMLLoader loader, Stage stage) {
+//            this.loader = loader;
+//            this.stage = stage;
+//        }
+//    }
 }

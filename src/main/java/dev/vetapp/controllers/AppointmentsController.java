@@ -1,9 +1,12 @@
 package dev.vetapp.controllers;
 
+import dev.vetapp.FxmlManager;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+
+import java.io.IOException;
 
 public class AppointmentsController {
     @FXML GridPane calendarGrid;
@@ -12,7 +15,6 @@ public class AppointmentsController {
     @FXML private void initialize(){
         calendarGrid.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if(newScene != null){
-                System.out.println("XDDDDD " + getClass().getResource("/dev/vetapp/fxml/styles.css").toExternalForm());
                 newScene.getStylesheets().add(getClass().getResource("/dev/vetapp/fxml/styles.css").toExternalForm());
             }
         });
@@ -22,11 +24,24 @@ public class AppointmentsController {
                 StackPane cell = new StackPane();
                 calendarGrid.add(cell, col, row);
                 dayCells[col-1][row-1] = cell;
+                cell.getStyleClass().add("calendarCell");
+                cell.setOnMouseClicked(event -> {
+                    openNewAppointmentModal();
+                });
             }
         }
 
-        for(Node node : calendarGrid.getChildren()){
-            node.getStyleClass().add("calendarCell");
+        //for(Node node : calendarGrid.getChildren()){
+            //node.getStyleClass().add("calendarCell");
+        //}
+    }
+
+    private void openNewAppointmentModal() {
+        try{
+            FxmlManager.loadFxmlModal(FxmlManager.FxmlFile.NewAppointmentModal);
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
         }
     }
 }

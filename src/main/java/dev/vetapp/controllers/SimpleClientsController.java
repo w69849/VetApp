@@ -1,16 +1,14 @@
 package dev.vetapp.controllers;
 
-import dev.vetapp.FxmlManager;
 import dev.vetapp.models.ClientModel;
 import dev.vetapp.services.ClientService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
-import java.io.IOException;
-
-public class ClientsController {
+public class SimpleClientsController {
     ClientService clientService;
 
     @FXML private TableView<ClientModel> clientsTable;
@@ -21,12 +19,9 @@ public class ClientsController {
     @FXML private TableColumn<ClientModel, String> phoneNumberColumn;
     @FXML private TableColumn<ClientModel, String> addressColumn;
     @FXML private TableColumn<ClientModel, String> locationColumn;
-    @FXML private TableColumn actionsColumn;
 
     @FXML
-    private void initialize(){
-        clientService = new ClientService();
-
+    private void initialize() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         clientSurnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
@@ -35,17 +30,26 @@ public class ClientsController {
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
 
-        clientsTable.setItems(clientService.loadClients());
+        clientsTable.getSelectionModel().selectedItemProperty()
+                .addListener((obs, oldSelection, newSelection) -> {
+            if(newSelection != null) {
+                clientService.setSelectedClient(newSelection);
+
+                Stage stage = (Stage) clientsTable.getScene().getWindow();
+                stage.close();
+            }
+        });
     }
 
-    @FXML
-    private void createNewClientModal(){
-        try{
-            NewClientController controller = FxmlManager.loadFxmlModal(FxmlManager.FxmlFile.NewClientModal).getController();
-            controller.setClientService(clientService);
-        }
-        catch (IOException e){
-            System.out.println(e.getMessage());
-        }
+    public void setClientService(ClientService service) {
+        clientService = service;
+
+        if(clientService == null)
+            return;
+
+        if(clientService.clientsList.isEmpty())
+            clientsTable.setItems(clientService.loadClients());
+        else
+            clientsTable.setItems(clientService.clientsList);
     }
 }

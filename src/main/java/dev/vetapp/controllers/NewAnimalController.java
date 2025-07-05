@@ -1,5 +1,6 @@
 package dev.vetapp.controllers;
 
+import dev.vetapp.FxmlManager;
 import dev.vetapp.models.AnimalModel;
 import dev.vetapp.models.AnimalTypeModel;
 import dev.vetapp.models.ClientModel;
@@ -9,12 +10,15 @@ import dev.vetapp.services.ClientService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ResourceBundle;
 
 public class NewAnimalController {
     @FXML private ResourceBundle resources;
+
+    @FXML private Button chooseButton;
 
     @FXML private TextField animalNameTextField;
     @FXML private ComboBox<String> speciesComboBox;
@@ -43,13 +47,16 @@ public class NewAnimalController {
         animalService = new AnimalService();
         clientService = new ClientService();
 
-        initComboBoxes();
+        initForm();
 
-        SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.1, 200, 5, 0.1);
-        weightSpinner.setValueFactory(valueFactory);
+        clientService.getSelectedClientProperty()
+                .addListener((obs, oldClient, newClient) -> {
+                    if(newClient != null)
+                        fillClientFormWithSelection(newClient);
+        });
     }
 
-    private void initComboBoxes(){
+    private void initForm(){
         genderComboBox.getItems().addAll(resources.getString("male"), resources.getString("female"));
 
         speciesComboBox.setItems(animalTypeService.animalSpecies);
@@ -73,6 +80,9 @@ public class NewAnimalController {
                 .addListener((obs, oldVal, newVal) -> {
                     breedComboBox.setDisable(newVal == null || newVal.isEmpty());
         });
+
+        SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.1, 200, 5, 0.1);
+        weightSpinner.setValueFactory(valueFactory);
     }
 
     @FXML private void breedComboBox_onShowing() {
@@ -124,7 +134,27 @@ public class NewAnimalController {
     }
 
     @FXML private void onChooseButtonAction(){
+        try{
+            SimpleClientsController controller = FxmlManager.loadFxmlModal(FxmlManager.FxmlFile.SimpleClientsModal).getController();
+            controller.setClientService(clientService);
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
+    private void fillClientFormWithSelection(ClientModel model) {
+        ownerNameTextField.setText(model.getName());
+        ownerSurnameTextField.setText(model.getSurname());
+        emailTextField.setText(model.getEmail());
+        phoneNumberTextField.setText(model.getPhoneNumber());
+        addressTextField.setText(model.getAddress());
+
+        String[] s = model.getLocation().split(" ");
+
+        zipCodeTextField.setText(s[0]);
+        cityTextField.setText(s[1]);
     }
 
     private boolean validateAnimalForm(){

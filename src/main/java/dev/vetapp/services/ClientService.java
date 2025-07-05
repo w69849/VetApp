@@ -7,6 +7,8 @@ import dev.vetapp.Mapper;
 import dev.vetapp.database.DatabaseConnector;
 import dev.vetapp.database.entities.ClientEntity;
 import dev.vetapp.models.ClientModel;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -14,6 +16,9 @@ import java.util.List;
 
 public class ClientService {
     private final Mapper mapper;
+
+    public ObservableList<ClientModel> clientsList = FXCollections.observableArrayList();
+    private ObjectProperty<ClientModel> selectedClient = new SimpleObjectProperty<>();
 
     public ClientService(){
         mapper = new Mapper();
@@ -33,21 +38,30 @@ public class ClientService {
         }
     }
 
-    public ObservableList<ClientModel> getClients(){
+    public ObservableList<ClientModel> loadClients(){
         try(ConnectionSource conn = DatabaseConnector.getConnectionSource()){
             Dao<ClientEntity, Integer> dao = DaoManager.createDao(conn, ClientEntity.class);
 
             List<ClientEntity> list = dao.queryForAll();
-            ObservableList<ClientModel> observableList = FXCollections.observableArrayList();
 
             for(var e : list){
-               observableList.add(mapper.mapToModel(e));
+               clientsList.add(mapper.mapToModel(e));
             }
 
-            return observableList;
+            return clientsList;
         }
         catch(Exception e){
             throw new RuntimeException(e);
         }
+    }
+
+    public ObjectProperty<ClientModel> getSelectedClientProperty() {
+        return selectedClient;
+    }
+    public ClientModel getSelectedClient() {
+        return selectedClient.get();
+    }
+    public void setSelectedClient(ClientModel selectedClient) {
+        this.selectedClient.set(selectedClient);
     }
 }

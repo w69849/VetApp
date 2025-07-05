@@ -52,7 +52,8 @@ public class AnimalsController {
             FxmlManager.loadFxmlModal(FxmlManager.FxmlFile.NewAnimalModal);
         }
         catch (IOException e){
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage() + "NEW ANIMAL ERROR");
+            e.printStackTrace();
         }
     }
 }
