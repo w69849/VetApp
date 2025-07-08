@@ -6,6 +6,7 @@ module dev.vetapp {
     requires java.sql;
     requires com.h2database;
     requires jdk.compiler;
+    requires org.controlsfx.controls;
 
     exports dev.vetapp;
     opens dev.vetapp to javafx.fxml;

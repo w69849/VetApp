@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.vetapp.controllers.MainController">
+<HBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="600.0" minWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.vetapp.controllers.MainController">
    <children>
       <VBox maxWidth="200.0" minWidth="100.0" prefWidth="100.0" style="-fx-background-color: #422f1f;">
          <children>
@@ -22,7 +22,7 @@
          <padding>
             <Insets top="75.0" />
          </padding></VBox>
-      <VBox prefHeight="200.0" HBox.hgrow="ALWAYS">
+      <VBox maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS">
          <children>
             <HBox maxHeight="100.0" minHeight="75.0" prefHeight="75.0" prefWidth="100.0" />
             <BorderPane fx:id="contentArea" prefHeight="200.0" prefWidth="200.0" />

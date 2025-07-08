@@ -1,13 +1,19 @@
 .navigationButton{
 	-fx-background-color: #422f1f;
+	-fx-text-fill: white;
 }
 
 .navigationButton:hover{
 	-fx-background-color: white;
+	-fx-text-fill: black;
 }
 
 .calendarCell {
-    -fx-background-color: red;
+    -fx-background-color: gray;
     -fx-border-color: #e0e0e0;
     -fx-border-width: 0 1 1 0;
+}
+
+.calendarCell:hover {
+    -fx-cursor: hand;
 }

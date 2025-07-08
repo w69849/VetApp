@@ -22,6 +22,7 @@ public class Application extends javafx.application.Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("VetApp");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
 
 //        Server server = null;

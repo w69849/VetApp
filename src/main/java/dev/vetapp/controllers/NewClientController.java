@@ -4,6 +4,7 @@ import dev.vetapp.models.ClientModel;
 import dev.vetapp.services.ClientService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 public class NewClientController {
     @FXML private TextField clientNameTextField;
@@ -16,9 +17,16 @@ public class NewClientController {
 
     private ClientService clientService;
     private ClientModel clientModel;
+    boolean updating = false;
 
     @FXML private void initialize(){
+        updating = false;
+    }
 
+    public void setClientService(ClientService service){
+        clientService = service;
+        if(clientService.getEditedClient() != null)
+            fillForm(clientService.getEditedClient());
     }
 
     @FXML private void onSaveButtonAction(){
@@ -27,6 +35,8 @@ public class NewClientController {
 
         if(clientModel == null) {
             clientModel = new ClientModel();
+        }
+
             clientModel.setAddress(addressTextField.getText());
             clientModel.setEmail(emailTextField.getText());
             clientModel.setSurname(clientSurnameTextField.getText());
@@ -34,8 +44,13 @@ public class NewClientController {
             clientModel.setName(clientNameTextField.getText());
             clientModel.setLocation(cityTextField.getText(), zipCodeTextField.getText());
 
-            clientService.saveClient(clientModel);
-        }
+            //if(updating)
+            //    clientService.updateClient(clientModel);
+            //else
+        clientService.saveClient(clientModel, updating);
+
+        Stage stage = (Stage) clientNameTextField.getScene().getWindow();
+        stage.close();
     }
 
     private boolean validateForm(){
@@ -63,7 +78,17 @@ public class NewClientController {
         return true;
     }
 
-    public void setClientService(ClientService service){
-        clientService = service;
+    private void fillForm(ClientModel model) {
+        clientNameTextField.setText(model.getName());
+        clientSurnameTextField.setText(model.getSurname());
+        addressTextField.setText(model.getAddress());
+        phoneNumberTextField.setText(model.getPhoneNumber());
+        emailTextField.setText(model.getEmail());
+        String[] s = model.getLocation().split(" ");
+        zipCodeTextField.setText(s[0]);
+        cityTextField.setText(s[1]);
+
+        clientModel = model;
+        updating = true;
     }
 }

@@ -2,7 +2,6 @@ package dev.vetapp.controllers;
 
 import dev.vetapp.FxmlManager;
 import dev.vetapp.models.AnimalModel;
-import dev.vetapp.models.AnimalTypeModel;
 import dev.vetapp.models.ClientModel;
 import dev.vetapp.services.AnimalService;
 import dev.vetapp.services.AnimalTypeService;
@@ -18,7 +17,8 @@ import java.util.ResourceBundle;
 public class NewAnimalController {
     @FXML private ResourceBundle resources;
 
-    @FXML private Button chooseButton;
+    @FXML private Button assignOwnerButton;
+    @FXML private Button removeOwnerButton;
 
     @FXML private TextField animalNameTextField;
     @FXML private ComboBox<String> speciesComboBox;
@@ -36,80 +36,88 @@ public class NewAnimalController {
     @FXML private TextField zipCodeTextField;
     @FXML private TextField cityTextField;
 
+    @FXML private Label animalNameErrorLabel;
+    @FXML private Label birthDateErrorLabel;
+
+    @FXML private Label ownerNameErrorLabel;
+    @FXML private Label ownerSurnameErrorLabel;
+    @FXML private Label emailErrorLabel;
+    @FXML private Label phoneNumberErrorLabel;
+    @FXML private Label addressErrorLabel;
+    @FXML private Label zipCodeErrorLabel;
+    @FXML private Label cityErrorLabel;
+
     private AnimalTypeService animalTypeService;
     private AnimalService animalService;
     private ClientService clientService;
-
     private ClientModel clientModel;
 
     @FXML private void initialize(){
         animalTypeService = new AnimalTypeService();
-        animalService = new AnimalService();
         clientService = new ClientService();
 
         initForm();
 
         clientService.getSelectedClientProperty()
                 .addListener((obs, oldClient, newClient) -> {
-                    if(newClient != null)
+                    if(newClient != null) {
                         fillClientFormWithSelection(newClient);
+                    }
         });
+
+        removeOwnerButton.disableProperty().bind(clientService.getSelectedClientProperty().isNull());
     }
+
+    public void setAnimalService(AnimalService service) { this.animalService = service; }
 
     private void initForm(){
         genderComboBox.getItems().addAll(resources.getString("male"), resources.getString("female"));
+        genderComboBox.setValue(genderComboBox.getItems().get(0));
 
         speciesComboBox.setItems(animalTypeService.animalSpecies);
-//        speciesComboBox.setCellFactory(_ -> new ListCell<>(){
-//            @Override
-//            protected void updateItem(String species, boolean empty) {
-//                super.updateItem(species, empty);
-//                setText((empty || species == null) ? null : species);
-//            }
-//        });
-//
-//        speciesComboBox.setButtonCell(new ListCell<>() {
-//            @Override
-//            protected void updateItem(String species, boolean empty) {
-//                super.updateItem(species, empty);
-//                setText((empty || species == null) ? null : species);
-//            }
-//        });
+
+        if(!speciesComboBox.getItems().isEmpty())
+            speciesComboBox.setValue(speciesComboBox.getItems().get(0));
+
+        breedComboBox.setItems(animalTypeService.getBreeds(speciesComboBox.getSelectionModel().getSelectedItem()));
+        breedComboBox.setValue(breedComboBox.getItems().get(0));
 
         speciesComboBox.getSelectionModel().selectedItemProperty()
                 .addListener((obs, oldVal, newVal) -> {
-                    breedComboBox.setDisable(newVal == null || newVal.isEmpty());
+                    breedComboBox.setItems(animalTypeService.getBreeds(speciesComboBox.getSelectionModel().getSelectedItem()));
+                    breedComboBox.setValue(breedComboBox.getItems().get(0));
         });
 
         SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.1, 200, 5, 0.1);
         weightSpinner.setValueFactory(valueFactory);
     }
 
-    @FXML private void breedComboBox_onShowing() {
-        breedComboBox.setItems(animalTypeService.getBreeds(speciesComboBox.getSelectionModel().getSelectedItem()));
-    }
-
     @FXML private void onSaveButtonAction(){
         if(!validateAnimalForm() || !validateClientForm())
             return;
 
-        if(clientModel == null) {
-            try{
-                clientModel = new ClientModel();
-                clientModel.setLocation(cityTextField.getText(), zipCodeTextField.getText());
-                clientModel.setAddress(addressTextField.getText());
-                clientModel.setEmail(emailTextField.getText());
-                clientModel.setSurname(ownerSurnameTextField.getText());
-                clientModel.setPhoneNumber(phoneNumberTextField.getText());
-                clientModel.setName(ownerNameTextField.getText());
+        if(clientService.getSelectedClient() == null)
+        {
+            if(clientModel == null) {
+                try{
+                    clientModel = new ClientModel();
+                    clientModel.setLocation(cityTextField.getText(), zipCodeTextField.getText());
+                    clientModel.setAddress(addressTextField.getText());
+                    clientModel.setEmail(emailTextField.getText());
+                    clientModel.setSurname(ownerSurnameTextField.getText());
+                    clientModel.setPhoneNumber(phoneNumberTextField.getText());
+                    clientModel.setName(ownerNameTextField.getText());
 
-                clientService.saveClient(clientModel);
-            }
-            catch(Exception e){
-                System.out.println(e.getMessage());
-                return;
+                    clientService.saveClient(clientModel, false);
+                }
+                catch(Exception e){
+                    System.out.println(e.getMessage());
+                    return;
+                }
             }
         }
+        else
+            clientModel = clientService.getSelectedClient();
 
         AnimalModel animal = new AnimalModel();
         animal.setSpecies(speciesComboBox.getSelectionModel().getSelectedItem());
@@ -117,7 +125,6 @@ public class NewAnimalController {
         animal.setName(animalNameTextField.getText());
         animal.setGender(genderComboBox.getSelectionModel().getSelectedItem());
 
-        System.out.println("XXDDD22 " + clientModel + clientModel.getName());
         animal.setOwner(clientModel);
         animal.setNotes(notesTextArea.getText());
         animal.setWeight(weightSpinner.getValue());
@@ -133,7 +140,7 @@ public class NewAnimalController {
 
     }
 
-    @FXML private void onChooseButtonAction(){
+    @FXML private void showClientsList(){
         try{
             SimpleClientsController controller = FxmlManager.loadFxmlModal(FxmlManager.FxmlFile.SimpleClientsModal).getController();
             controller.setClientService(clientService);
@@ -155,31 +162,77 @@ public class NewAnimalController {
 
         zipCodeTextField.setText(s[0]);
         cityTextField.setText(s[1]);
+
+        ownerSurnameTextField.setDisable(true);
+        ownerNameTextField.setDisable(true);
+        emailTextField.setDisable(true);
+        phoneNumberTextField.setDisable(true);
+        addressTextField.setDisable(true);
+        zipCodeTextField.setDisable(true);
+        cityTextField.setDisable(true);
+    }
+
+    @FXML private void removeOwner() {
+        clientService.setSelectedClient(null);
+
+        ownerSurnameTextField.setText("");
+        ownerNameTextField.setText("");
+        emailTextField.setText("");
+        phoneNumberTextField.setText("");
+        addressTextField.setText("");
+        zipCodeTextField.setText("");
+        cityTextField.setText("");
+
+        ownerSurnameTextField.setDisable(false);
+        ownerNameTextField.setDisable(false);
+        emailTextField.setDisable(false);
+        phoneNumberTextField.setDisable(false);
+        addressTextField.setDisable(false);
+        zipCodeTextField.setDisable(false);
+        cityTextField.setDisable(false);
     }
 
     private boolean validateAnimalForm(){
-        if(animalNameTextField.getText().isEmpty())
-            return false;
+        boolean valid = true;
 
-        if(speciesComboBox.getSelectionModel().getSelectedItem().isEmpty())
-            return false;
+        if(animalNameTextField.getText().isEmpty()) {
+            valid = false;
+            animalNameErrorLabel.setText("To pole nie może być puste");
+            animalNameErrorLabel.setVisible(true);
+        }
+        else
+            animalNameErrorLabel.setVisible(false);
 
-        if(breedComboBox.getSelectionModel().getSelectedItem().isEmpty())
-            return false;
+        if(birthDatePicker.getValue() == null) {
+            valid = false;
+            birthDateErrorLabel.setText("To pole nie może być puste");
+            birthDateErrorLabel.setVisible(true);
+        }
+        else
+            birthDateErrorLabel.setVisible(false);
 
-        if(genderComboBox.getSelectionModel().getSelectedItem().isEmpty())
-            return false;
-
-        if(weightSpinner.getValue().isNaN())
-            return false;
-
-        if(birthDatePicker.getValue().toString().isEmpty())
-            return false;
-
-        return true;
+        return valid;
     }
 
     private boolean validateClientForm(){
-        return true;
+        boolean valid = true;
+
+        if(ownerNameErrorLabel.getText().isEmpty()) {
+            valid = false;
+            ownerNameErrorLabel.setText("To pole nie może być puste");
+            ownerNameErrorLabel.setVisible(true);
+        }
+        else
+            ownerSurnameErrorLabel.setVisible(false);
+
+        if(ownerSurnameErrorLabel.getText().isEmpty()) {
+            valid = false;
+            ownerSurnameErrorLabel.setText("To pole nie może być puste");
+            ownerSurnameErrorLabel.setVisible(true);
+        }
+        else
+            ownerSurnameErrorLabel.setVisible(false);
+
+        return valid;
     }
 }

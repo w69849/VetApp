@@ -80,15 +80,18 @@ public class Mapper {
     public ClientModel mapToModel(ClientEntity entity){
         ClientModel model = new ClientModel();
 
-        if(entity.getId() != null)
-            model.setId(entity.getId());
+        if(entity != null) {
+            if(entity.getId() != null)
+                model.setId(entity.getId());
 
-        model.setLocation(entity.getCity(), entity.getZipCode());
-        model.setName(entity.getName());
-        model.setSurname(entity.getSurname());
-        model.setAddress(entity.getAddress());
-        model.setEmail(entity.getEmail());
-        model.setPhoneNumber(entity.getPhoneNumber());
+            model.setLocation(entity.getCity(), entity.getZipCode());
+            model.setName(entity.getName());
+            model.setSurname(entity.getSurname());
+            model.setAddress(entity.getAddress());
+            model.setEmail(entity.getEmail());
+            model.setPhoneNumber(entity.getPhoneNumber());
+        }
+
 
         return model;
     }

@@ -11,16 +11,15 @@ public class ClientModel {
     //private String zipCode;
     //private String city;
 
-//    public ClientModel(String name, String surname, String email, String phoneNumber,
-//                       String address, String zipCode, String city){
-//        this.name = name;
-//        this.surname = surname;
-//        this.email = email;
-//        this.phoneNumber = phoneNumber;
-//        this.address = address;
-//        this.zipCode = zipCode;
-//        this.city = city;
-//    }
+    public ClientModel(String name, String surname, String email, String phoneNumber,
+                       String address, String location){
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.location = location;
+    }
     public ClientModel(){}
 
     public Integer getId(){ return id; }

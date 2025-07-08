@@ -19,6 +19,8 @@ import java.util.List;
 public class AnimalService {
     Mapper mapper;
 
+    ObservableList<AnimalModel> animalsList = FXCollections.observableArrayList();
+
     public AnimalService(){
         mapper = new Mapper();
     }
@@ -37,6 +39,9 @@ public class AnimalService {
 
             Dao<AnimalEntity, Integer> dao = DaoManager.createDao(conn, AnimalEntity.class);
             dao.createOrUpdate(entity);
+
+            model.setId(entity.getId());
+            animalsList.add(model);
         }
         catch (Exception e) {
             throw new RuntimeException(e);
@@ -48,14 +53,13 @@ public class AnimalService {
             Dao<AnimalEntity, Integer> dao = DaoManager.createDao(conn, AnimalEntity.class);
 
             List<AnimalEntity> list = dao.queryForAll();
-            ObservableList<AnimalModel> observableList = FXCollections.observableArrayList();
 
             for(var e : list){
-                observableList.add(mapper.mapToModel(e));
+                animalsList.add(mapper.mapToModel(e));
                 System.out.println("XDDDaaaa " + e.getNotes());
             }
 
-            return observableList;
+            return animalsList;
         }
         catch(Exception e){
             throw new RuntimeException(e);

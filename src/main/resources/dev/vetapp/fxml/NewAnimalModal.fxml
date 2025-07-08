@@ -52,13 +52,31 @@
                                     <Label text="%birthDate" GridPane.rowIndex="4" />
                                     <Label text="%weight" GridPane.rowIndex="5" />
                                     <Label text="%notes" GridPane.rowIndex="6" />
-                                    <TextField fx:id="animalNameTextField" prefHeight="26.0" prefWidth="140.0" GridPane.columnIndex="1" />
                                     <ComboBox fx:id="speciesComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <ComboBox fx:id="breedComboBox" disable="true" onShowing="#breedComboBox_onShowing" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <ComboBox fx:id="breedComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <ComboBox fx:id="genderComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <DatePicker fx:id="birthDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     <Spinner fx:id="weightSpinner" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                     <TextArea fx:id="notesTextArea" prefHeight="80.0" prefWidth="209.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <TextField fx:id="animalNameTextField" alignment="CENTER" prefHeight="26.0" prefWidth="140.0">
+                                             <VBox.margin>
+                                                <Insets top="17.6" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <Label fx:id="animalNameErrorLabel" prefHeight="15.0" textFill="RED" visible="false" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <children>
+                                          <DatePicker fx:id="birthDatePicker" editable="false">
+                                             <VBox.margin>
+                                                <Insets top="17.6" />
+                                             </VBox.margin>
+                                          </DatePicker>
+                                          <Label fx:id="birthDateErrorLabel" textFill="RED" visible="false" />
+                                       </children>
+                                    </VBox>
                                  </children>
                               </GridPane>
                               <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -118,16 +136,80 @@
                         <Label text="%email" GridPane.rowIndex="3" />
                         <Label text="%phoneNumber" GridPane.rowIndex="4" />
                         <Label text="%address" GridPane.rowIndex="5" />
-                        <TextField fx:id="ownerNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="ownerSurnameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="phoneNumberTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="addressTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label text="%zipCode" GridPane.rowIndex="6" />
                         <Label text="%city" GridPane.rowIndex="7" />
-                        <TextField fx:id="zipCodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="cityTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Button fx:id="chooseButton" mnemonicParsing="false" onAction="#onChooseButtonAction" text="Button" GridPane.columnIndex="1" />
+                        <Button fx:id="removeOwnerButton" mnemonicParsing="false" onAction="#removeOwner" text="%remove" GridPane.columnIndex="1" />
+                        <Button fx:id="assignOwnerButton" mnemonicParsing="false" onAction="#showClientsList" text="%chooseOwner" />
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <TextField fx:id="ownerNameTextField">
+                                 <VBox.margin>
+                                    <Insets top="16.7" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label fx:id="ownerNameErrorLabel" textFill="RED" visible="false" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                              <TextField fx:id="ownerSurnameTextField">
+                                 <VBox.margin>
+                                    <Insets top="16.7" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label fx:id="ownerSurnameErrorLabel" textFill="RED" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <children>
+                              <TextField fx:id="emailTextField">
+                                 <VBox.margin>
+                                    <Insets top="16.7" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label fx:id="emailErrorLabel" textFill="RED" visible="false" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <children>
+                              <TextField fx:id="phoneNumberTextField">
+                                 <VBox.margin>
+                                    <Insets top="16.7" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label fx:id="phoneNumberErrorLabel" textFill="RED" visible="false" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <children>
+                              <TextField fx:id="addressTextField">
+                                 <VBox.margin>
+                                    <Insets top="16.7" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label fx:id="addressErrorLabel" textFill="RED" visible="false" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                           <children>
+                              <TextField fx:id="zipCodeTextField">
+                                 <VBox.margin>
+                                    <Insets top="16.7" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label fx:id="zipCodeErrorLabel" textFill="RED" visible="false" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                           <children>
+                              <TextField fx:id="cityTextField">
+                                 <VBox.margin>
+                                    <Insets top="16.7" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label fx:id="cityErrorLabel" textFill="RED" visible="false" />
+                           </children>
+                        </VBox>
                      </children>
                   </GridPane>
                </children></AnchorPane>
