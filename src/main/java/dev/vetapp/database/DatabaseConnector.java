@@ -23,9 +23,9 @@ public class DatabaseConnector {
     public static void initDatabase(){
         initConnection();
 
-        //if(new File("./data/VetDatabase").exists()) {
-        //    dropTables();
-        //}
+//       if(new File("./data/VetDatabase.mv.db").exists()) {
+        //           dropTables();
+//        }
 
         createTables();
         DbHelper.FillDatabase();
@@ -55,6 +55,7 @@ public class DatabaseConnector {
             }
             catch (Exception e){
                 logger.warn(e.getMessage());
+                e.printStackTrace();
             }
         }
     }
@@ -69,7 +70,8 @@ public class DatabaseConnector {
             TableUtils.createTableIfNotExists(connectionSource, AnimalTypeEntity.class);
         }
         catch (SQLException e){
-            logger.warn(e.getMessage());
+            logger.warn("FAIL AT CREATING TABLES" + e.getMessage());
+            e.printStackTrace();
         }
 
 //        try (Connection conn = DriverManager.getConnection(connectionString, user, password);

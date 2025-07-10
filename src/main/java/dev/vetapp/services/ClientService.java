@@ -45,8 +45,11 @@ public class ClientService {
                     }
                 }
             }
+            else
+                clientsList.add(model);
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -80,18 +83,18 @@ public class ClientService {
         }
     }
 
-    public void UpdateClient(ClientModel model) {
-        try(ConnectionSource conn = DatabaseConnector.getConnectionSource()) {
-            Dao<ClientEntity, Integer> dao = DaoManager.createDao(conn, ClientEntity.class);
-
-            ClientEntity entity = mapper.mapToEntity(model);
-
-            dao.update(entity);
-        }
-        catch(Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public void UpdateClient(ClientModel model) {
+//        try(ConnectionSource conn = DatabaseConnector.getConnectionSource()) {
+//            Dao<ClientEntity, Integer> dao = DaoManager.createDao(conn, ClientEntity.class);
+//
+//            ClientEntity entity = mapper.mapToEntity(model);
+//
+//            dao.update(entity);
+//        }
+//        catch(Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     public ObjectProperty<ClientModel> getSelectedClientProperty() {
         return selectedClient;

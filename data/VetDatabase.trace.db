@@ -1,3 +1,42 @@
-2025-05-07 19:31:17.394392+02:00 jdbc[3]: exception
+2025-07-10 02:53:27.365907+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ANIMALTYPES" not found (this database is empty); SQL statement:
+INSERT INTO `AnimalTypes` (`species` ,`breed` ) VALUES (?,?) [42104-232]
+2025-07-10 02:53:28.254901+02:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTS" not found (this database is empty); SQL statement:
 SELECT * FROM `Clients` [42104-232]
+2025-07-10 02:55:16.818885+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ANIMALTYPES" not found (this database is empty); SQL statement:
+INSERT INTO `AnimalTypes` (`species` ,`breed` ) VALUES (?,?) [42104-232]
+2025-07-10 02:55:17.743210+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTS" not found (this database is empty); SQL statement:
+SELECT * FROM `Clients` [42104-232]
+2025-07-10 02:57:54.172370+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ANIMALTYPES" not found (this database is empty); SQL statement:
+INSERT INTO `AnimalTypes` (`species` ,`breed` ) VALUES (?,?) [42104-232]
+2025-07-10 02:57:55.081551+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTS" not found (this database is empty); SQL statement:
+SELECT * FROM `Clients` [42104-232]
+2025-07-10 02:59:10.349903+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "APPOINTMENTS" nie istnieje
+Table "APPOINTMENTS" not found; SQL statement:
+DROP TABLE `Appointments` [42102-232]
+2025-07-10 02:59:10.357904+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "CLIENTS" nie istnieje
+Table "CLIENTS" not found; SQL statement:
+DROP TABLE `Clients` [42102-232]
+2025-07-10 02:59:10.361905+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "INVENTORY" nie istnieje
+Table "INVENTORY" not found; SQL statement:
+DROP TABLE `Inventory` [42102-232]
+2025-07-10 02:59:10.373006+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "PAYMENTS" nie istnieje
+Table "PAYMENTS" not found; SQL statement:
+DROP TABLE `Payments` [42102-232]
+2025-07-10 02:59:10.373910+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "ANIMALS" nie istnieje
+Table "ANIMALS" not found; SQL statement:
+DROP TABLE `Animals` [42102-232]
+2025-07-10 02:59:10.375912+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "ANIMALTYPES" nie istnieje
+Table "ANIMALTYPES" not found; SQL statement:
+DROP TABLE `AnimalTypes` [42102-232]

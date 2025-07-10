@@ -7,6 +7,7 @@ import com.j256.ormlite.field.DatabaseField;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @DatabaseTable(tableName = "Animals")
 public class AnimalEntity {
@@ -22,8 +23,8 @@ public class AnimalEntity {
     @DatabaseField(foreign = true, foreignAutoRefresh = true, canBeNull = false)
     private AnimalTypeEntity animalType;
 
-    @DatabaseField(canBeNull = false)
-    private Timestamp birthDate;
+    @DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE)
+    private LocalDate birthDate;
 
     @DatabaseField
     private String gender;
@@ -76,10 +77,10 @@ public class AnimalEntity {
         this.animalType = animalType;
     }
 
-    public Timestamp getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
-    public void setBirthDate(Timestamp birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

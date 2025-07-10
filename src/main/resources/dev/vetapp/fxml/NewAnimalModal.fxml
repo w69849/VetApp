@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.vetapp.controllers.NewAnimalController">
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.vetapp.controllers.NewAnimalController">
   <tabs>
       <Tab text="%animalData">
         <content>
@@ -81,13 +81,13 @@
                               </GridPane>
                               <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ImageView fitHeight="213.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="photo" fitHeight="213.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../icons/animal_icon.png" />
                                        </image>
                                     </ImageView>
                                     <Line endX="122.49287414550781" fill="#00ff55" startX="-100.0" stroke="#009e81" strokeWidth="2.0" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="%addPhoto" textAlignment="CENTER" />
+                                    <Button fx:id="addPhotoButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addPhoto" text="%addPhoto" textAlignment="CENTER" />
                                  </children>
                               </VBox>
                            </children>
@@ -95,14 +95,29 @@
                         <Line endX="504.09283447265625" endY="-0.2070823609828949" startX="-100.0" stroke="#949494" />
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="606.0" spacing="10.0">
                            <children>
-                              <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelButtonAction" text="%cancel" />
-                              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSaveButtonAction" text="%save" />
+                              <VBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                 <children>
+                                    <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSaveButtonAction" text="%save">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Label fx:id="ownerErrorLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textFill="RED" visible="false">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
                            </children>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                            <padding>
-                              <Insets right="10.0" />
+                              <Insets right="25.0" />
                            </padding>
                         </HBox>
                      </children>
@@ -111,7 +126,7 @@
             </AnchorPane>
         </content>
       </Tab>
-    <Tab text="%ownerData">
+    <Tab fx:id="ownerTab" text="%ownerData">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>

@@ -2,10 +2,13 @@ package dev.vetapp;
 
 import dev.vetapp.database.entities.AnimalEntity;
 import dev.vetapp.database.entities.AnimalTypeEntity;
+import dev.vetapp.database.entities.AppointmentEntity;
 import dev.vetapp.database.entities.ClientEntity;
 import dev.vetapp.models.AnimalModel;
+import dev.vetapp.models.AppointmentModel;
 import dev.vetapp.models.ClientModel;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,20 +26,18 @@ public class Mapper {
         entity.setNotes(model.getNotes());
         entity.setGender(model.getGender());
         entity.setWeight(model.getWeight());
-        System.out.println("XXDDD3444 " + model.getOwner() + model.getOwner().getName());
         entity.setAnimalType(typeEntity);
         entity.setOwner(mapToEntity(model.getOwner()));
+        entity.setBirthDate(model.getAge());
 
-        LocalDateTime birthDate = LocalDateTime.now().minusMonths(model.getAge());
-        entity.setBirthDate(Timestamp.valueOf(birthDate));
+        //LocalDateTime birthDate = LocalDateTime.now().minusMonths(model.getAge());
+        //entity.setBirthDate(Timestamp.valueOf(birthDate));
 
         return entity;
     }
 
     public ClientEntity mapToEntity(ClientModel model){
         ClientEntity entity = new ClientEntity();
-
-        System.out.println("XXDDD55555 " + model + model.getName());
 
         if(model.getId() != null)
             entity.setId(model.getId());
@@ -48,9 +49,14 @@ public class Mapper {
         entity.setPhoneNumber(model.getPhoneNumber());
         entity.setCreationDate(new Timestamp(System.currentTimeMillis()));
 
-        String[] elements = model.getLocation().split(" ");
-        entity.setZipCode(elements[0]);
-        entity.setCity(elements[1]);
+        if(!model.getLocation().isEmpty()) {
+            String[] elements = model.getLocation().split(" ");
+            if(elements.length != 0) {
+                entity.setZipCode(elements[0]);
+                if (elements.length > 1)
+                    entity.setCity(elements[1]);
+            }
+        }
 
         return entity;
     }
@@ -66,12 +72,12 @@ public class Mapper {
         model.setSpecies(entity.getAnimalType().getSpecies());
         model.setBreed(entity.getAnimalType().getBreed());
 
-        LocalDate date = entity.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        Period period = Period.between(date, LocalDate.now());
-        int ageInMonths = period.getYears() * 12 + period.getMonths();
-        model.setAge(ageInMonths);
+//        LocalDate date = entity.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//        Period period = Period.between(date, LocalDate.now());
+//        int ageInMonths = period.getYears() * 12 + period.getMonths();
+//        model.setAge(ageInMonths);
+        model.setAge(entity.getBirthDate());
 
-        System.out.println("XDDD" + entity.getOwner());
         model.setOwner(mapToModel(entity.getOwner()));
 
         return model;
@@ -92,7 +98,23 @@ public class Mapper {
             model.setPhoneNumber(entity.getPhoneNumber());
         }
 
-
         return model;
+    }
+
+    public AppointmentEntity mapToEntity(AppointmentModel model, AnimalTypeEntity animalType) {
+        return new AppointmentEntity(
+                model.getSubject(),
+                mapToEntity(model.getAnimal(), animalType),
+                model.getDate()
+        );
+    }
+
+    public AppointmentModel mapToModel(AppointmentEntity entity) {
+        return new AppointmentModel(
+                entity.getId(),
+                entity.getSubject(),
+                mapToModel(entity.getAnimal()),
+                entity.getDateTime()
+        );
     }
 }

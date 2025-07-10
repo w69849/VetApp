@@ -17,7 +17,8 @@ public class FxmlManager {
         NewAnimalModal("/dev/vetapp/fxml/NewAnimalModal.fxml"),
         NewClientModal("/dev/vetapp/fxml/NewClientModal.fxml"),
         NewAppointmentModal("/dev/vetapp/fxml/NewAppointmentModal.fxml"),
-        SimpleClientsModal("/dev/vetapp/fxml/SimpleClientsModal.fxml");
+        SimpleClientsModal("/dev/vetapp/fxml/SimpleClientsModal.fxml"),
+        SimpleAnimalsModal("/dev/vetapp/fxml/SimpleAnimalsModal.fxml");
 
         private final String path;
 

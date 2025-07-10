@@ -8,14 +8,20 @@ import dev.vetapp.services.AnimalTypeService;
 import dev.vetapp.services.ClientService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.ResourceBundle;
 
 public class NewAnimalController {
     @FXML private ResourceBundle resources;
+
+    @FXML private Label ownerErrorLabel;
 
     @FXML private Button assignOwnerButton;
     @FXML private Button removeOwnerButton;
@@ -47,12 +53,19 @@ public class NewAnimalController {
     @FXML private Label zipCodeErrorLabel;
     @FXML private Label cityErrorLabel;
 
+    @FXML private Button addPhotoButton;
+    @FXML private ImageView photo;
+
     private AnimalTypeService animalTypeService;
     private AnimalService animalService;
     private ClientService clientService;
     private ClientModel clientModel;
+    private AnimalModel animalModel;
+    private boolean updating = false;
 
     @FXML private void initialize(){
+        updating = false;
+
         animalTypeService = new AnimalTypeService();
         clientService = new ClientService();
 
@@ -66,9 +79,21 @@ public class NewAnimalController {
         });
 
         removeOwnerButton.disableProperty().bind(clientService.getSelectedClientProperty().isNull());
+
+        ownerSurnameTextField.disableProperty().bind(clientService.getSelectedClientProperty().isNotNull());
+        ownerNameTextField.disableProperty().bind(clientService.getSelectedClientProperty().isNotNull());
+        addressTextField.disableProperty().bind(clientService.getSelectedClientProperty().isNotNull());
+        phoneNumberTextField.disableProperty().bind(clientService.getSelectedClientProperty().isNotNull());
+        cityTextField.disableProperty().bind(clientService.getSelectedClientProperty().isNotNull());
+        zipCodeTextField.disableProperty().bind(clientService.getSelectedClientProperty().isNotNull());
+        emailTextField.disableProperty().bind(clientService.getSelectedClientProperty().isNotNull());
     }
 
-    public void setAnimalService(AnimalService service) { this.animalService = service; }
+    public void setAnimalService(AnimalService service) {
+        this.animalService = service;
+        if(animalService.getEditedAnimal() != null)
+            fillAnimalForm(animalService.getEditedAnimal());
+    }
 
     private void initForm(){
         genderComboBox.getItems().addAll(resources.getString("male"), resources.getString("female"));
@@ -112,6 +137,7 @@ public class NewAnimalController {
                 }
                 catch(Exception e){
                     System.out.println(e.getMessage());
+                    e.printStackTrace();
                     return;
                 }
             }
@@ -119,25 +145,27 @@ public class NewAnimalController {
         else
             clientModel = clientService.getSelectedClient();
 
-        AnimalModel animal = new AnimalModel();
-        animal.setSpecies(speciesComboBox.getSelectionModel().getSelectedItem());
-        animal.setBreed(breedComboBox.getSelectionModel().getSelectedItem());
-        animal.setName(animalNameTextField.getText());
-        animal.setGender(genderComboBox.getSelectionModel().getSelectedItem());
+        if(animalModel == null)
+            animalModel = new AnimalModel();
 
-        animal.setOwner(clientModel);
-        animal.setNotes(notesTextArea.getText());
-        animal.setWeight(weightSpinner.getValue());
+        animalModel.setSpecies(speciesComboBox.getSelectionModel().getSelectedItem());
+        animalModel.setBreed(breedComboBox.getSelectionModel().getSelectedItem());
+        animalModel.setName(animalNameTextField.getText());
+        animalModel.setGender(genderComboBox.getSelectionModel().getSelectedItem());
 
-        Period period = Period.between(birthDatePicker.getValue(), LocalDate.now());
-        int ageInMonths = period.getYears() * 12 + period.getMonths();
-        animal.setAge(ageInMonths);
+        animalModel.setOwner(clientModel);
+        animalModel.setNotes(notesTextArea.getText());
+        animalModel.setWeight(weightSpinner.getValue());
 
-        animalService.SaveAnimal(animal);
-    }
+//        Period period = Period.between(birthDatePicker.getValue(), LocalDate.now());
+//        int ageInMonths = period.getYears() * 12 + period.getMonths();
+//        animal.setAge(ageInMonths);
+        animalModel.setAge(birthDatePicker.getValue());
 
-    @FXML private void onCancelButtonAction(){
+        animalService.SaveAnimal(animalModel, updating);
 
+        Stage stage = (Stage) animalNameTextField.getScene().getWindow();
+        stage.close();
     }
 
     @FXML private void showClientsList(){
@@ -162,14 +190,6 @@ public class NewAnimalController {
 
         zipCodeTextField.setText(s[0]);
         cityTextField.setText(s[1]);
-
-        ownerSurnameTextField.setDisable(true);
-        ownerNameTextField.setDisable(true);
-        emailTextField.setDisable(true);
-        phoneNumberTextField.setDisable(true);
-        addressTextField.setDisable(true);
-        zipCodeTextField.setDisable(true);
-        cityTextField.setDisable(true);
     }
 
     @FXML private void removeOwner() {
@@ -182,14 +202,40 @@ public class NewAnimalController {
         addressTextField.setText("");
         zipCodeTextField.setText("");
         cityTextField.setText("");
+    }
 
-        ownerSurnameTextField.setDisable(false);
-        ownerNameTextField.setDisable(false);
-        emailTextField.setDisable(false);
-        phoneNumberTextField.setDisable(false);
-        addressTextField.setDisable(false);
-        zipCodeTextField.setDisable(false);
-        cityTextField.setDisable(false);
+    private void fillAnimalForm(AnimalModel model) {
+        animalNameTextField.setText(model.getName());
+        speciesComboBox.setValue(model.getSpecies());
+        breedComboBox.setValue(model.getBreed());
+        genderComboBox.setValue(model.getGender());
+        //LocalDate birthDate = LocalDate.now().minusMonths(model.getAge());
+        birthDatePicker.setValue(model.getAge());
+        weightSpinner.getValueFactory().setValue(model.getWeight());
+        notesTextArea.setText(model.getNotes());
+
+        clientService.setSelectedClient(model.getOwner());
+
+        animalModel = model;
+        updating = true;
+    }
+
+    @FXML private void addPhoto() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Wybierz zdjęcie");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(addPhotoButton.getScene().getWindow());
+        if (selectedFile != null) {
+            try {
+                Image image = new Image(new FileInputStream(selectedFile));
+                photo.setImage(image);
+            } catch (Exception e) {
+                e.printStackTrace(); // or show an error dialog
+            }
+        }
     }
 
     private boolean validateAnimalForm(){
@@ -217,7 +263,7 @@ public class NewAnimalController {
     private boolean validateClientForm(){
         boolean valid = true;
 
-        if(ownerNameErrorLabel.getText().isEmpty()) {
+        if(ownerNameTextField.getText().isEmpty()) {
             valid = false;
             ownerNameErrorLabel.setText("To pole nie może być puste");
             ownerNameErrorLabel.setVisible(true);
@@ -225,13 +271,44 @@ public class NewAnimalController {
         else
             ownerSurnameErrorLabel.setVisible(false);
 
-        if(ownerSurnameErrorLabel.getText().isEmpty()) {
+        if(ownerSurnameTextField.getText().isEmpty()) {
             valid = false;
             ownerSurnameErrorLabel.setText("To pole nie może być puste");
             ownerSurnameErrorLabel.setVisible(true);
         }
         else
             ownerSurnameErrorLabel.setVisible(false);
+
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+
+        if(emailTextField.getText().isEmpty()) {
+            valid = false;
+            emailErrorLabel.setText("To pole nie może być puste");
+            emailErrorLabel.setVisible(true);
+        } else if (!emailTextField.getText().matches(emailRegex)) {
+            valid = false;
+            emailErrorLabel.setText("Niepoprawny adres email");
+            emailErrorLabel.setVisible(true);
+        } else
+            emailErrorLabel.setVisible(false);
+        
+        if(phoneNumberTextField.getText().isEmpty()) {
+            valid = false;
+            phoneNumberErrorLabel.setText("To pole nie może być puste");
+            phoneNumberErrorLabel.setVisible(true);
+        } else if (!phoneNumberTextField.getText().matches("^\\d{9}$")) {
+            valid = false;
+            phoneNumberErrorLabel.setText("Niepoprawny numer telefonu. Podaj 9 liczb");
+            phoneNumberErrorLabel.setVisible(true);
+        } else 
+            phoneNumberErrorLabel.setVisible(false);
+
+        if (!valid) {
+            ownerErrorLabel.setText("Niepoprawne dane właściciela");
+            ownerErrorLabel.setVisible(true);
+        } else {
+            ownerErrorLabel.setVisible(false);
+        }
 
         return valid;
     }

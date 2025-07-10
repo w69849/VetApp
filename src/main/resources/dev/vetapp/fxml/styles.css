@@ -17,3 +17,22 @@
 .calendarCell:hover {
     -fx-cursor: hand;
 }
+
+.appointmentLabel {
+    -fx-background-color: #90caf9;
+    -fx-text-fill: black;
+    -fx-padding: 2 4;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.bookedCell {
+    -fx-background-color: lightgray;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 1 1 0;
+    -fx-cursor: default;
+}
+
+.bookedCell {
+    -fx-cursor: default;
+}

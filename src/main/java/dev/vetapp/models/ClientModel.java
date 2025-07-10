@@ -1,9 +1,12 @@
 package dev.vetapp.models;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 public class ClientModel {
     private Integer id;
-    private String name;
-    private String surname;
+    private ObjectProperty<String> name = new SimpleObjectProperty<>();
+    private ObjectProperty<String> surname = new SimpleObjectProperty<>();
     private String email;
     private String phoneNumber;
     private String address;
@@ -13,8 +16,8 @@ public class ClientModel {
 
     public ClientModel(String name, String surname, String email, String phoneNumber,
                        String address, String location){
-        this.name = name;
-        this.surname = surname;
+        this.name.set(name);
+        this.surname.set(surname);
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -25,19 +28,17 @@ public class ClientModel {
     public Integer getId(){ return id; }
     public void setId(Integer id){ this.id = id; }
 
+    public ObjectProperty<String> getNameProperty() { return name; }
     public String getName() {
-        return name;
+        return name.get();
     }
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name.set(name); }
 
+    public ObjectProperty<String> getSurnameProperty() { return surname; }
     public String getSurname() {
-        return surname;
+        return surname.get();
     }
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+    public void setSurname(String surname) { this.surname.set(surname); }
 
     public String getEmail() { return email; }
     public void setEmail(String email) {
@@ -61,8 +62,10 @@ public class ClientModel {
     public String getLocation(){
         return location;
     }
-    public void setLocation(String city, String zip){
-        location = city + " " + zip;
+    public void setLocation(String city, String zip)
+    {
+        if(city != null)
+            location = city + " " + zip;
     }
 
 //    public String getZipCode() {
@@ -84,6 +87,6 @@ public class ClientModel {
 
     @Override
     public String toString() {
-        return name + " " + surname;
+        return name.get() + " " + surname.get();
     }
 }

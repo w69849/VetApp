@@ -10,22 +10,27 @@ import dev.vetapp.database.entities.AnimalTypeEntity;
 import dev.vetapp.database.entities.ClientEntity;
 import dev.vetapp.models.AnimalModel;
 import dev.vetapp.models.ClientModel;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 public class AnimalService {
-    Mapper mapper;
+    private Mapper mapper;
 
-    ObservableList<AnimalModel> animalsList = FXCollections.observableArrayList();
+    private ObservableList<AnimalModel> animalsList = FXCollections.observableArrayList();
+    private ObjectProperty<AnimalModel> editedAnimal = new SimpleObjectProperty<>();
+    //private ObjectProperty<AnimalModel> selectedAnimal = new SimpleObjectProperty<>();
 
     public AnimalService(){
         mapper = new Mapper();
     }
 
-    public void SaveAnimal(AnimalModel model){
+    public void SaveAnimal(AnimalModel model, boolean updating){
         try(ConnectionSource conn = DatabaseConnector.getConnectionSource()) {
             Dao<AnimalTypeEntity, Integer> animalTypeDao = DaoManager.createDao(conn, AnimalTypeEntity.class);
             AnimalTypeEntity type = animalTypeDao.queryBuilder()
@@ -33,15 +38,24 @@ public class AnimalService {
                     .and().eq("breed", model.getBreed())
                     .queryForFirst();
 
-//            System.out.println("XXDDD33 " + model.getOwner() + model.getOwner().getName());
-
             AnimalEntity entity = mapper.mapToEntity(model, type);
 
             Dao<AnimalEntity, Integer> dao = DaoManager.createDao(conn, AnimalEntity.class);
             dao.createOrUpdate(entity);
 
             model.setId(entity.getId());
-            animalsList.add(model);
+
+            if(updating) {
+                for(int i=0; i < animalsList.size(); i++) {
+                    AnimalModel animal = animalsList.get(i);
+
+                    if(animal != null && Objects.equals(animal.getId(), model.getId())) {
+                        animalsList.set(i, model);
+                    }
+                }
+            }
+            else
+                animalsList.add(model);
         }
         catch (Exception e) {
             throw new RuntimeException(e);
@@ -65,4 +79,33 @@ public class AnimalService {
             throw new RuntimeException(e);
         }
     }
+
+    public void deleteAnimal(AnimalModel model) {
+        try(ConnectionSource conn = DatabaseConnector.getConnectionSource()) {
+            Dao<AnimalEntity, Integer> dao = DaoManager.createDao(conn, AnimalEntity.class);
+
+            dao.deleteById(model.getId());
+            animalsList.remove(model);
+        }
+        catch(Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ObjectProperty<AnimalModel> getEditedAnimalProperty() {
+        return editedAnimal;
+    }
+    public AnimalModel getEditedAnimal() {
+        return editedAnimal.get();
+    }
+    public void setEditedAnimal(AnimalModel model) {
+        this.editedAnimal.set(model);
+    }
+
+//    public ObjectProperty<AnimalModel> getSelectedAnimalProperty() { return selectedAnimal; }
+//    public AnimalModel getSelectedAnimal() { return selectedAnimal.get(); }
+//    public void setSelectedAnimal(AnimalModel model) { this.selectedAnimal.set(model); }
+
+    public ObservableList<AnimalModel> getAnimalsList() { return animalsList; }
+    public void setAnimalsList(ObservableList<AnimalModel> animalsList) { this.animalsList = animalsList; }
 }

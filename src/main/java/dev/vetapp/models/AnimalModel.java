@@ -1,17 +1,19 @@
 package dev.vetapp.models;
 
 import dev.vetapp.database.entities.ClientEntity;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
 import java.time.LocalDate;
 
 public class AnimalModel {
     private Integer id;
     private ClientModel owner;
-    private String name;
+    private ObjectProperty<String> name = new SimpleObjectProperty<>();
     //private AnimalTypeModel animalType;
     private String species;
     private String breed;
-    private int age;  // in months
+    private LocalDate age;  // in months
     private String gender;
     private double weight;
     private String notes;
@@ -59,10 +61,10 @@ public class AnimalModel {
         this.gender = gender;
     }
 
-    public int getAge() {
+    public LocalDate getAge() {
         return age;
     }
-    public void setAge(int age) {
+    public void setAge(LocalDate age) {
         this.age = age;
     }
 
@@ -79,10 +81,11 @@ public class AnimalModel {
     //    this.animalType = animalType;
     //}
 
+    public ObjectProperty<String> getNameProperty() { return name; }
     public String getName() {
-        return name;
+        return name.get();
     }
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 }

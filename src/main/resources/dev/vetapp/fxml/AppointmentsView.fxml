@@ -17,8 +17,8 @@
          <children>
             <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="nextWeekButton" mnemonicParsing="false" onAction="#showNextWeek" prefWidth="50.0" text="&lt;" />
-                  <Button fx:id="previousWeekButton" mnemonicParsing="false" onAction="#showPreviousWeek" prefWidth="50.0" text="&gt;" />
+                  <Button fx:id="previousWeekButton" mnemonicParsing="false" onAction="#showPreviousWeek" prefWidth="50.0" text="&lt;" />
+                  <Button fx:id="nextWeekButton" mnemonicParsing="false" onAction="#showNextWeek" prefWidth="50.0" text="&gt;" />
                </children>
             </HBox>
             <Label fx:id="weekLabel" text="Label">

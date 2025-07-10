@@ -3,6 +3,7 @@ package dev.vetapp.controllers;
 import dev.vetapp.FxmlManager;
 import dev.vetapp.models.ClientModel;
 import dev.vetapp.services.ClientService;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -86,11 +87,18 @@ public class ClientsController {
                     }
                 };
             }
-
-
         };
 
         actionsColumn.setCellFactory(cellFactory);
+
+        locationColumn.setCellValueFactory(cellData -> {
+            var location = cellData.getValue().getLocation();
+
+            if(location == null)
+                return new SimpleStringProperty("");
+            else
+                return new SimpleStringProperty(location);
+        });
 
         clientsTable.setItems(clientService.loadClients());
     }
