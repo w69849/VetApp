@@ -4,9 +4,13 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.logger.Logger;
 import com.j256.ormlite.logger.LoggerFactory;
+import dev.vetapp.Dialog;
+import dev.vetapp.database.entities.AnimalEntity;
 import dev.vetapp.database.entities.AnimalTypeEntity;
+import dev.vetapp.database.entities.ClientEntity;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -55,12 +59,33 @@ public class DbHelper {
                 new AnimalTypeEntity("Ptak", "Żako")
         ));
 
+        ArrayList<ClientEntity> clients = new ArrayList<>(Arrays.asList(
+                new ClientEntity(1, "Michał", "Sowa", "msowa@gmail.com", "111222333", "ul. Sucharskiego 2", "22-333", "Rzeszów")
+        ));
+
+        ArrayList<AnimalEntity> animals = new ArrayList<>(Arrays.asList(
+            new AnimalEntity(clients.get(0), "Zwierze1", types.get(0), LocalDate.now(), "Samiec", 5.0, "")
+        ));
+
         try{
             Dao<AnimalTypeEntity, Integer> dao = DaoManager.createDao(DatabaseConnector.getConnectionSource(), AnimalTypeEntity.class);
             dao.create(types);
         }
         catch (SQLException e){
             logger.warn(e.getMessage());
+            Dialog.showError("Nie można załadować rekordów typów zwierząt");
+        }
+
+        try{
+            Dao<ClientEntity, Integer> dao2 = DaoManager.createDao(DatabaseConnector.getConnectionSource(), ClientEntity.class);
+            dao2.create(clients);
+
+            Dao<AnimalEntity, Integer> dao3 = DaoManager.createDao(DatabaseConnector.getConnectionSource(), AnimalEntity.class);
+            dao3.create(animals);
+        }
+        catch(SQLException e) {
+            logger.warn(e.getMessage());
+            e.printStackTrace();
         }
         finally {
             //DatabaseConnector.closeConnection();

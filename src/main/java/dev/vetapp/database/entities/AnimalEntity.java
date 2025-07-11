@@ -35,16 +35,16 @@ public class AnimalEntity {
     @DatabaseField
     private String notes;
 
-//    public AnimalEntity(ClientEntity owner, String name, AnimalTypeEntity animalType, Date birthDate,
-//                        String gender, double weight, String notes) {
-//        this.owner = owner;
-//        this.name = name;
-//        this.animalType = animalType;
-//        this.birthDate = birthDate;
-//        this.gender = gender;
-//        this.weight = weight;
-//        this.notes = notes;
-//    }
+    public AnimalEntity(ClientEntity owner, String name, AnimalTypeEntity animalType, LocalDate birthDate,
+                        String gender, double weight, String notes) {
+        this.owner = owner;
+        this.name = name;
+        this.animalType = animalType;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.weight = weight;
+        this.notes = notes;
+    }
 
     public AnimalEntity(){}
 

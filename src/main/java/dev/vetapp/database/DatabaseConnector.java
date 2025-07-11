@@ -5,6 +5,7 @@ import com.j256.ormlite.logger.Logger;
 import com.j256.ormlite.logger.LoggerFactory;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import dev.vetapp.Dialog;
 import dev.vetapp.database.entities.*;
 
 import java.io.File;
@@ -21,15 +22,19 @@ public class DatabaseConnector {
     private static ConnectionSource connectionSource;
 
     public static void initDatabase(){
-        initConnection();
+
 
 //       if(new File("./data/VetDatabase.mv.db").exists()) {
         //           dropTables();
 //        }
 
-        createTables();
-        DbHelper.FillDatabase();
-        closeConnection();
+        if(!new File("./data/VetDatabase.mv.db").exists()) {
+            initConnection();
+            createTables();
+            DbHelper.FillDatabase();
+            closeConnection();
+        }
+
     }
 
     private static void initConnection(){
@@ -38,6 +43,7 @@ public class DatabaseConnector {
         }
         catch (SQLException e){
             logger.warn(e.getMessage());
+            Dialog.showError("Błąd podczas inicjalizowania połączenia z bazą");
             e.printStackTrace();
         }
     }
@@ -56,6 +62,7 @@ public class DatabaseConnector {
             }
             catch (Exception e){
                 logger.warn(e.getMessage());
+                Dialog.showError("Błąd podczas zamykania połączenia z bazą");
                 e.printStackTrace();
             }
         }
@@ -70,6 +77,7 @@ public class DatabaseConnector {
         }
         catch (SQLException e){
             logger.warn("FAIL AT CREATING TABLES" + e.getMessage());
+            Dialog.showError("Błąd podczas tworzenia tabel");
             e.printStackTrace();
         }
     }

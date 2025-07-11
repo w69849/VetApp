@@ -9,6 +9,8 @@ import com.j256.ormlite.table.DatabaseTable;
 //import java.util.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @DatabaseTable(tableName = "Clients")
 public class ClientEntity {
@@ -40,6 +42,18 @@ public class ClientEntity {
     private Timestamp creationDate;
 
     public ClientEntity() {}
+
+    public ClientEntity(int id, String name, String surname, String email, String phoneNumber, String address, String zipCode, String city) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.id = id;
+        creationDate = Timestamp.valueOf(LocalDateTime.now());
+    }
 
     public Integer getId() {
         return id;
