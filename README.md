@@ -2,9 +2,9 @@ Work in progress.
 
 JavaFX, SceneBuilder, ORMLite, H2, Maven
 
-Desktop app for vets
+Desktop app for managing clients, animals and appointments.
 
 # How to run
-Requirements: Maven, jdk-23
+Requirements: Maven 3.9, JDK23
 
-Type: `mvn javafx:run`
+Type: `mvn clean javafx:run`
